@@ -11,7 +11,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<org>/<repo>.git     # 이 저장소 주소로 바꾼다
+    repoURL: https://github.com/zser99/evidence-review-agent.git   # private 저장소 — Argo CD에 저장소 자격 증명 등록 필요
     targetRevision: main
     path: deploy/helm/evidence-agent
     helm:

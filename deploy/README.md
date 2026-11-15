@@ -65,7 +65,7 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 ### 3.2 배포
 
 1. `deploy/helm/evidence-agent/values-eks.yaml` 의 `<...>` 값을 채운다(Harbor 주소, RDS 엔드포인트, 버킷, 역할 ARN, 도메인, 인증서 ARN).
-2. `deploy/argocd/application.yaml` 의 `repoURL` 을 이 저장소 주소로 바꿔 적용한다.
+2. `deploy/argocd/application.yaml` 을 적용한다. 저장소가 private이므로 먼저 Argo CD에 저장소 자격 증명을 등록한다(`argocd repo add https://github.com/zser99/evidence-review-agent.git --username <계정> --password <토큰>`).
 
 ```bash
 kubectl apply -n argocd -f deploy/argocd/application.yaml
