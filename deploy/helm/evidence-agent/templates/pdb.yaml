@@ -1,0 +1,16 @@
+{{- if .Values.podDisruptionBudget.enabled }}
+{{- range $name, $replicas := dict "frontend" .Values.frontend.replicas "backend" .Values.backend.replicas }}
+{{- if gt (int $replicas) 1 }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ $.Release.Name }}-{{ $name }}
+  labels: {{- include "ea.labels" $ | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" $ "name" $name) | nindent 6 }}
+{{- end }}
+{{- end }}
+{{- end }}

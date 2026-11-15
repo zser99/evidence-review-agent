@@ -1,0 +1,9 @@
+# 로컬 검증용 kind 클러스터. NodePort 30088 을 호스트의 30088 로 연다.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30088
+        hostPort: 30088
+        protocol: TCP

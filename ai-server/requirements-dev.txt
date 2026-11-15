@@ -1,0 +1,6 @@
+-r requirements.txt
+pytest==9.2.0
+fonttools==4.68.0      # tools/docgen.py: PDF 글꼴 서브셋
+# 선택: PaddleOCR 네이티브 엔진으로 돌릴 때만 (OCR_ENGINE=paddle)
+# paddlepaddle==3.3.1
+# paddleocr==3.7.0

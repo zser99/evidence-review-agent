@@ -1,0 +1,258 @@
+# 의료비 지원 — 지원 종류 설정 (가상 규정 기반)
+# 학자금과 같은 판정 흐름을 그대로 쓰고, 뽑을 항목과 규정 조건만 이 파일에 정의한다.
+schema_version: 1
+support_type: medical
+name: 의료비 지원
+version: "2026.1"
+effective_date: "2026-01-01"
+description: 구성원 본인·배우자·자녀의 질병·상해 치료 목적 진료비(환자 본인부담금)를 건당 한도 내에서 지원합니다.
+icon: hospital
+
+params:
+  per_receipt_limit: 2000000   # 제5조 ③ 건당 한도(원)
+  min_amount: 10000            # 제5조 ③ 최소 금액(원)
+  apply_within_days: 90        # 제6조 수납일부터 신청 기한(일)
+
+decision:
+  auto_threshold: 0.85
+  ocr_min_confidence: 0.80
+  auto_finalize_approval: true
+
+application_form:
+  - key: target_name
+    label: 대상자(환자) 성명
+    type: person_name
+    required: true
+  - key: relationship
+    label: 대상자와의 관계
+    type: enum
+    options: [본인, 배우자, 자녀]
+    required: true
+  - key: hospital_name
+    label: 의료기관명
+    type: text
+    required: true
+  - key: receipt_date
+    label: 수납일
+    type: date
+    required: true
+  - key: requested_amount
+    label: 신청 금액(원)
+    type: money
+    required: true
+    help: 영수증의 '납부한 금액'
+
+documents:
+  - id: medical_receipt
+    name: 진료비 계산서·영수증
+    description: 의료기관이 발급한 진료비 계산서·영수증. 카드 매출전표나 간이영수증은 인정되지 않습니다.
+    required: true
+    title_keywords: [진료비계산서, 진료비영수증, 진료비계산서·영수증, 계산서·영수증, 계산서영수증]
+    reject_title_keywords: [매출전표, 간이영수증, 카드전표]
+    fields:
+      - key: patient_name
+        label: 환자 성명
+        type: person_name
+        labels: [환자성명, 환자명, 성명]
+        required: true
+      - key: hospital_name
+        label: 의료기관명
+        type: text
+        labels: [상호, 요양기관명, 의료기관명, 요양기관명칭]
+        required: true
+      - key: institution_kind
+        label: 요양기관 종류
+        type: text
+        labels: [요양기관종류, 요양기관종별, 종별]
+      - key: department
+        label: 진료과목
+        type: text
+        labels: [진료과목, 진료과]
+        required: true
+      - key: treatment
+        label: 진료 내용
+        type: text
+        labels: [진료내용, 주요진료내용, 비고]
+        required: true
+      - key: treatment_period
+        label: 진료기간
+        type: text
+        labels: [진료기간]
+      - key: patient_total
+        label: 환자부담 총액
+        type: money
+        labels: [환자부담총액, 환자부담금총액, 본인부담총액]
+      - key: paid_amount
+        label: 납부한 금액
+        type: money
+        labels: [납부한금액, 수납금액, 납부금액]
+        required: true
+      - key: receipt_date
+        label: 수납일
+        type: date
+        labels: [수납일, 수납일자, 납부일]
+        required: true
+      - key: receipt_no
+        label: 영수증 번호
+        type: identifier
+        labels: [영수증번호]
+      - key: business_no
+        label: 사업자등록번호
+        type: identifier
+        labels: [사업자등록번호]
+
+  - id: family_relation_certificate
+    name: 가족관계증명서
+    description: 구성원 본인 기준으로 발급한 가족관계증명서. 배우자·자녀가 대상자인 경우 필수입니다.
+    required_when: "app.relationship != '본인'"
+    title_keywords: [가족관계증명서]
+    fields:
+      - key: principal_name
+        label: 본인 성명
+        type: person_name
+        from_table: {table: members, where: {relation: 본인}, column: name}
+        required: true
+      - key: family_names
+        label: 배우자·자녀 성명
+        type: name_list
+        from_table: {table: members, where: {relation: [배우자, 자녀]}, column: name, many: true}
+        required: true
+    tables:
+      - key: members
+        label: 가족 사항
+        columns:
+          - {key: relation, header: [구분], type: text}
+          - {key: name, header: [성명], type: person_name}
+        end_labels: [위가족관계증명서, 위증명서]
+
+enrichments: []
+
+comparisons:
+  - id: C-PATIENT
+    label: 대상자(환자) 성명
+    left: app.target_name
+    right: ev.medical_receipt.patient_name
+    method: name
+    fail_guidance: "신청서의 대상자 성명({left})과 영수증의 환자 성명({right})이 다릅니다."
+  - id: C-HOSPITAL
+    label: 의료기관명
+    left: app.hospital_name
+    right: ev.medical_receipt.hospital_name
+    method: institution
+    fail_guidance: "신청서의 의료기관명({left})과 영수증의 의료기관명({right})이 다릅니다."
+  - id: C-DATE
+    label: 수납일
+    left: app.receipt_date
+    right: ev.medical_receipt.receipt_date
+    method: date
+    fail_guidance: "신청서의 수납일({left})과 영수증의 수납일({right})이 다릅니다."
+  - id: C-AMOUNT
+    label: 신청 금액 ↔ 납부한 금액
+    left: app.requested_amount
+    right: ev.medical_receipt.paid_amount
+    method: money
+    clause: 제5조
+    fail_guidance: "신청 금액({left}원)과 영수증의 납부한 금액({right}원)이 다릅니다. 영수증의 '납부한 금액'으로 신청 금액을 수정해 주세요."
+  - id: C-FAMILY-SELF
+    label: 가족관계증명서 본인
+    left: emp.name
+    right: ev.family_relation_certificate.principal_name
+    method: name
+    when: "app.relationship != '본인'"
+    clause: 제2조
+    fail_guidance: "가족관계증명서의 본인({right})이 신청 구성원({left})과 다릅니다."
+  - id: C-FAMILY-MEMBER
+    label: 가족관계증명서 대상자
+    left: app.target_name
+    right: ev.family_relation_certificate.family_names
+    method: in_list
+    when: "app.relationship != '본인'"
+    clause: 제2조
+    fail_guidance: "가족관계증명서에서 대상자({left})를 확인할 수 없습니다."
+
+static_rules:
+  - id: S-SELF-NAME
+    label: 본인 신청 시 성명 일치
+    clause: 제2조
+    requires: [app.relationship, app.target_name, emp.name]
+    expr: "app.relationship != '본인' or #sameName(app.target_name, emp.name)"
+    evidence: [app.relationship, app.target_name, emp.name]
+    fail_guidance: "관계가 '본인'인데 대상자 성명이 구성원 성명과 다릅니다."
+  - id: S-LIMIT
+    label: 건당 지원 한도 이내
+    clause: 제5조
+    requires: [app.requested_amount]
+    expr: "app.requested_amount <= params.per_receipt_limit"
+    evidence: [app.requested_amount, params.per_receipt_limit]
+    fail_guidance: "신청 금액이 건당 지원 한도(200만원)를 초과합니다."
+  - id: S-MIN
+    label: 최소 금액 1만원 이상
+    clause: 제5조
+    requires: [app.requested_amount]
+    expr: "app.requested_amount >= params.min_amount"
+    evidence: [app.requested_amount, params.min_amount]
+    fail_guidance: "납부한 금액이 1만원 미만인 건은 지원 대상이 아닙니다."
+  - id: S-PAID-WITHIN-TOTAL
+    label: 납부한 금액 ≤ 환자부담 총액
+    clause: 제5조
+    requires: [ev.medical_receipt.paid_amount, ev.medical_receipt.patient_total]
+    expr: "ev.medical_receipt.paid_amount <= ev.medical_receipt.patient_total"
+    evidence: [ev.medical_receipt.paid_amount, ev.medical_receipt.patient_total]
+    on_unknown: skip
+    fail_guidance: "영수증의 납부한 금액이 환자부담 총액보다 큽니다. 영수증을 다시 확인해 주세요."
+  - id: S-DEADLINE
+    label: 수납일부터 90일 이내 신청
+    clause: 제6조
+    requires: [ev.medical_receipt.receipt_date]
+    expr: "#days(ev.medical_receipt.receipt_date, ctx.applied_on) >= 0 and #days(ev.medical_receipt.receipt_date, ctx.applied_on) <= params.apply_within_days"
+    evidence: [ev.medical_receipt.receipt_date, ctx.applied_on]
+    fail_guidance: "진료비 수납일부터 90일이 지나 신청 기한이 경과했습니다."
+  - id: S-DUPLICATE
+    label: 동일 영수증 중복 지원 없음
+    clause: 제5조
+    builtin: no_duplicate
+    keys: [app.target_name, app.hospital_name, app.receipt_date]
+    fail_guidance: "같은 대상자의 같은 의료기관·수납일 영수증으로 이미 접수된 신청이 있습니다."
+
+judgments:
+  - id: J-MED-INSTITUTION
+    label: 의료법상 의료기관 여부
+    type: noul
+    clause_refs: [제3조]
+    inputs:
+      의료기관명: ev.medical_receipt.hospital_name
+      요양기관_종류: ev.medical_receipt.institution_kind
+    required_inputs: [의료기관명]
+    instructions: "이 기관은 의료비 지원 규정 제3조의 의료법상 의료기관(의원·치과의원·한의원·병원·종합병원 등)에 해당합니까?"
+    criteria:
+      "true": "의원, 치과의원, 한의원, 병원, 치과병원, 한방병원, 요양병원, 종합병원, 상급종합병원 등 의료법상 의료기관이다"
+      "false": "피부관리실, 체형관리센터, 건강원, 안경원, 마사지업소 등 의료기관이 아닌 시설이다"
+    local_text: "{의료기관명} {요양기관_종류}"
+    examples:
+      "true": ["한빛내과의원 의원", "새솔정형외과의원 의원", "미래치과의원 치과의원", "늘푸른한의원 한의원", "동해병원 병원", "한국대학교병원 상급종합병원", "서울중앙종합병원 종합병원", "밝은안과의원 의원", "튼튼소아청소년과의원 의원", "바른이비인후과의원 의원", "연세피부과의원 의원", "아름다운성형외과의원 의원"]
+      "false": ["뷰티라인피부관리실", "바디핏체형관리센터", "장수건강원", "밝은눈안경원", "힐링타이마사지", "에스테틱샵 피부관리", "웰빙건강식품"]
+    fail_guidance: "영수증 발급 기관({의료기관명})은 의료법상 의료기관으로 확인되지 않아 지원 대상이 아닙니다."
+
+  - id: J-MED-PURPOSE
+    label: 진료 목적(치료 여부)
+    type: choice
+    clause_refs: [제4조]
+    inputs:
+      진료과목: ev.medical_receipt.department
+      진료_내용: ev.medical_receipt.treatment
+    required_inputs: [진료_내용]
+    instructions: "진료과목과 진료 내용을 볼 때, 이 진료는 의료비 지원 규정 제4조의 어느 유형에 해당합니까?"
+    criteria:
+      treatment: "질병 또는 상해의 치료를 목적으로 한 진료"
+      cosmetic: "미용·성형 목적의 시술 또는 수술(쌍꺼풀, 코 성형, 지방흡입, 보톡스, 필러, 치아 미백, 제모 등)"
+      preventive: "건강검진, 예방접종 등 예방 목적"
+      wellness: "보약, 영양제, 영양주사 등 건강 증진 목적 또는 제증명 발급 수수료"
+    pass_options: [treatment]
+    option_labels: {treatment: 치료 목적, cosmetic: 미용·성형, preventive: 검진·예방, wellness: 건강증진·제증명}
+    local_text: "{진료과목} {진료_내용}"
+    examples:
+      treatment: ["내과 급성 편도염 진료", "정형외과 발목 골절 수술", "이비인후과 급성 중이염 치료", "내과 위염 진료 및 투약", "소아청소년과 폐렴 입원 치료", "치과 충치 치료", "안과 결막염 진료", "정형외과 허리 디스크 치료", "외과 맹장염 수술", "피부과 아토피 피부염 치료", "산부인과 자궁근종 수술", "신경과 편두통 진료", "치과 사랑니 발치", "내과 독감 진료", "정형외과 손목 염좌 치료", "비뇨의학과 요로결석 치료", "한의원 허리 통증 침 치료", "한방내과 염좌 침 치료", "한방병원 추나 요법 치료", "소아청소년과 감기 진료", "내과 장염 치료", "가정의학과 고혈압 진료", "피부과 대상포진 치료", "외과 탈장 수술", "안과 백내장 수술", "정형외과 도수치료", "재활의학과 물리치료", "내과 감기 진료", "이비인후과 비염 치료", "외과 담낭 절제 수술"]
+      cosmetic: ["성형외과 쌍꺼풀 수술", "성형외과 코 성형 수술", "피부과 보톡스 시술", "피부과 필러 시술", "성형외과 지방흡입", "치과 치아 미백", "피부과 레이저 제모", "피부과 미용 목적 점 제거", "성형외과 안면윤곽 수술"]
+      preventive: ["가정의학과 종합건강검진", "내과 국가건강검진 추가 검사", "소아청소년과 독감 예방접종", "가정의학과 대상포진 예방접종", "내과 건강검진 위내시경", "산부인과 자궁경부암 예방접종"]
+      wellness: ["한의원 보약 처방", "가정의학과 영양주사", "내과 비타민 수액", "내과 진단서 발급", "한방내과 공진단 처방", "가정의학과 마늘주사"]
+    fail_guidance: "영수증의 진료 내용({진료과목}, {진료_내용})은 치료 목적 진료가 아니어서 지원 대상에서 제외됩니다(미용·성형, 검진·예방, 건강 증진 비용 제외)."

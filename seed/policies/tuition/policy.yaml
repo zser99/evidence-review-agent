@@ -1,0 +1,327 @@
+# 학자금 지원 — 지원 종류 설정 (가상 규정 기반)
+# 이 파일 하나가 "뽑을 항목 / 대조 규칙 / 정적 규칙 / Jev 판정 질문 / 필요한 서류"를 모두 정의한다.
+# 판정 흐름(코드)은 지원 종류와 무관하며, 새 지원 종류는 이 형식의 YAML + 규정집만 추가하면 된다.
+schema_version: 1
+support_type: tuition
+name: 학자금 지원
+version: "2026.1"
+effective_date: "2026-01-01"
+description: 구성원 본인 또는 자녀의 대학 등록금(입학금·수업료) 실납입액을 학기별 한도 내에서 지원합니다.
+icon: mortarboard
+
+params:
+  semester_limit: 5000000      # 제5조 ③ 학기별 한도(원)
+  apply_within_days: 60        # 제6조 ① 납입일부터 신청 기한(일)
+  min_tenure_months: 12        # 제2조 ① 최소 재직기간(월)
+
+decision:
+  auto_threshold: 0.85         # 확신도 ≥ 기준 → 자동 판정, 미만 → 담당자 확인 (정답 세트 검증으로 보정)
+  ocr_min_confidence: 0.80     # 필드 OCR 신뢰도 < 기준 → '읽지 못함'
+  auto_finalize_approval: true # 모든 조건을 높은 확신도로 충족하면 담당자 확인 없이 승인 확정
+
+application_form:
+  - key: target_name
+    label: 대상자 성명
+    type: person_name
+    required: true
+    help: 등록금을 납입한 학생(본인 또는 자녀)의 성명
+  - key: relationship
+    label: 대상자와의 관계
+    type: enum
+    options: [본인, 자녀]
+    required: true
+  - key: school_name
+    label: 학교명
+    type: text
+    required: true
+    help: 납입증명서에 적힌 학교명 그대로 입력
+  - key: semester
+    label: 신청 학기
+    type: semester
+    required: true
+  - key: requested_amount
+    label: 신청 금액(원)
+    type: money
+    required: true
+    help: 장학금·감면액을 뺀 실납입액
+
+documents:
+  - id: tuition_payment_certificate
+    name: 등록금 납입증명서
+    description: 학교가 발급한 납입증명서(학교장 명의·발급일·직인 포함). 고지서나 납입 안내문은 인정되지 않습니다.
+    required: true
+    title_keywords: [납입증명서, 납부증명서, 납입확인서, 납부확인서]
+    reject_title_keywords: [고지서, 납입안내, 납부안내]
+    fields:
+      - key: student_name
+        label: 학생 성명
+        type: person_name
+        labels: [성명, 학생성명, 이름, 학생명]
+        required: true
+      - key: school_name
+        label: 학교명
+        type: text
+        labels: [학교명, 대학명, 교육기관명, 소속대학]
+        required: true
+      - key: course
+        label: 과정
+        type: text
+        labels: [과정, 과정구분, 학위과정]
+      - key: department
+        label: 학과
+        type: text
+        labels: [학과, 학과(전공), 전공, 학부(과)]
+      - key: semester
+        label: 납입 학기
+        type: semester
+        labels: [학년도/학기, 학년도학기, 등록학기, 납입학기, 학기]
+        required: true
+      - key: tuition_total
+        label: 등록금 합계
+        type: money
+        labels: [등록금합계, 등록금계, 합계]
+      - key: scholarship_amount
+        label: 장학금(감면)
+        type: money
+        labels: [장학금(감면), 장학금, 감면액, 장학금액]
+      - key: paid_amount
+        label: 실납입액
+        type: money
+        labels: [실납입액, 실납입금액, 실납부액, 납입금액, 실제납입액]
+        required: true
+      - key: payment_date
+        label: 납입일자
+        type: date
+        labels: [납입일자, 납입일, 납부일자, 납부일]
+        required: true
+      - key: issue_date
+        label: 발급일
+        type: date
+        labels: [발급일, 발급일자, 발행일]
+      - key: certificate_no
+        label: 증명서 번호
+        type: identifier
+        labels: [증명서번호, 발급번호, 문서번호]
+      - key: issuer
+        label: 발급기관장
+        type: text
+        patterns: ['([가-힣A-Za-z]+(?:\s[가-힣A-Za-z]+){0,2}\s*(?:총장|학장|원장|이사장))(?![가-힣])']
+      - key: seal
+        label: 직인
+        type: presence
+        patterns: ['직인', '\(인\)', '전자직인', '관인']
+    tables:
+      - key: payment_items
+        label: 납입 내역
+        columns:
+          - {key: name, header: [구분, 항목, 납입항목], type: text}
+          - {key: amount, header: [금액, 금액(원), 납입금액(원)], type: money}
+        end_labels: [등록금합계, 등록금계, 합계]
+
+  - id: family_relation_certificate
+    name: 가족관계증명서
+    description: 구성원 본인 기준으로 발급한 가족관계증명서(자녀 성명 포함). 자녀가 대상자인 경우 필수입니다.
+    required_when: "app.relationship == '자녀'"
+    title_keywords: [가족관계증명서]
+    fields:
+      - key: principal_name
+        label: 본인 성명
+        type: person_name
+        from_table: {table: members, where: {relation: 본인}, column: name}
+        required: true
+      - key: child_names
+        label: 자녀 성명
+        type: name_list
+        from_table: {table: members, where: {relation: 자녀}, column: name, many: true}
+        required: true
+      - key: issue_date
+        label: 발급일
+        type: date
+        labels: [발급일, 발행일]
+    tables:
+      - key: members
+        label: 가족 사항
+        columns:
+          - {key: relation, header: [구분], type: text}
+          - {key: name, header: [성명], type: person_name}
+        end_labels: [위가족관계증명서, 위증명서]
+
+# 대학알리미 조회 등 외부 조회로 채우는 사실(facts.ext.*)
+enrichments:
+  - id: university
+    source: university_directory
+    input: ev.tuition_payment_certificate.school_name
+
+# 신청 내용 ↔ 증빙 추출값 대조 (일치 / 불일치 / 읽지 못함)
+comparisons:
+  - id: C-NAME
+    label: 대상자 성명
+    left: app.target_name
+    right: ev.tuition_payment_certificate.student_name
+    method: name
+    fail_guidance: "신청서의 대상자 성명({left})과 납입증명서의 학생 성명({right})이 다릅니다. 대상자 본인의 납입증명서를 제출하거나 신청서를 수정해 주세요."
+  - id: C-SCHOOL
+    label: 학교명
+    left: app.school_name
+    right: ev.tuition_payment_certificate.school_name
+    method: institution
+    fail_guidance: "신청서의 학교명({left})과 납입증명서의 학교명({right})이 다릅니다."
+  - id: C-SEMESTER
+    label: 학기
+    left: app.semester
+    right: ev.tuition_payment_certificate.semester
+    method: semester
+    clause: 제6조
+    fail_guidance: "신청 학기({left})와 납입증명서의 학기({right})가 다릅니다. 신청 학기에 해당하는 납입증명서를 제출해 주세요."
+  - id: C-AMOUNT
+    label: 신청 금액 ↔ 실납입액
+    left: app.requested_amount
+    right: ev.tuition_payment_certificate.paid_amount
+    method: money
+    clause: 제5조
+    fail_guidance: "신청 금액({left}원)과 납입증명서의 실납입액({right}원)이 다릅니다. 장학금·감면액을 뺀 실납입액으로 신청 금액을 수정해 주세요."
+  - id: C-FAMILY-SELF
+    label: 가족관계증명서 본인
+    left: emp.name
+    right: ev.family_relation_certificate.principal_name
+    method: name
+    when: "app.relationship == '자녀'"
+    clause: 제2조
+    fail_guidance: "가족관계증명서의 본인({right})이 신청 구성원({left})과 다릅니다. 구성원 본인 기준으로 발급한 가족관계증명서를 제출해 주세요."
+  - id: C-FAMILY-CHILD
+    label: 가족관계증명서 자녀
+    left: app.target_name
+    right: ev.family_relation_certificate.child_names
+    method: in_list
+    when: "app.relationship == '자녀'"
+    clause: 제2조
+    fail_guidance: "가족관계증명서의 자녀 항목에서 대상자({left})를 확인할 수 없습니다."
+
+# 코드로 확정 판정하는 정적 규칙 (SpEL, 읽기 전용 컨텍스트)
+static_rules:
+  - id: S-TENURE
+    label: 재직기간 1년 이상
+    clause: 제2조
+    requires: [emp.hire_date]
+    expr: "#months(emp.hire_date, ctx.applied_on) >= params.min_tenure_months"
+    evidence: [emp.hire_date, ctx.applied_on]
+    fail_guidance: "신청일 기준 재직기간이 1년 미만이어서 지원 대상이 아닙니다."
+  - id: S-SELF-NAME
+    label: 본인 신청 시 성명 일치
+    clause: 제2조
+    requires: [app.relationship, app.target_name, emp.name]
+    expr: "app.relationship != '본인' or #sameName(app.target_name, emp.name)"
+    evidence: [app.relationship, app.target_name, emp.name]
+    fail_guidance: "관계가 '본인'인데 대상자 성명이 구성원 성명과 다릅니다."
+  - id: S-LIMIT
+    label: 학기별 지원 한도 이내
+    clause: 제5조
+    requires: [app.requested_amount]
+    expr: "app.requested_amount <= params.semester_limit"
+    evidence: [app.requested_amount, params.semester_limit]
+    fail_guidance: "신청 금액이 학기별 지원 한도(500만원)를 초과합니다. 한도 이내 금액으로 신청해 주세요."
+  - id: S-NET-AMOUNT
+    label: 실납입액 = 등록금 − 장학금
+    clause: 제5조
+    requires: [ev.tuition_payment_certificate.paid_amount, ev.tuition_payment_certificate.tuition_total]
+    expr: "ev.tuition_payment_certificate.paid_amount == ev.tuition_payment_certificate.tuition_total - #nz(ev.tuition_payment_certificate.scholarship_amount)"
+    evidence: [ev.tuition_payment_certificate.tuition_total, ev.tuition_payment_certificate.scholarship_amount, ev.tuition_payment_certificate.paid_amount]
+    on_unknown: skip
+    fail_guidance: "납입증명서의 실납입액이 등록금 합계에서 장학금을 뺀 금액과 맞지 않습니다. 증명서를 다시 확인해 주세요."
+  - id: S-DEADLINE
+    label: 납입일부터 60일 이내 신청
+    clause: 제6조
+    requires: [ev.tuition_payment_certificate.payment_date]
+    expr: "#days(ev.tuition_payment_certificate.payment_date, ctx.applied_on) >= 0 and #days(ev.tuition_payment_certificate.payment_date, ctx.applied_on) <= params.apply_within_days"
+    evidence: [ev.tuition_payment_certificate.payment_date, ctx.applied_on]
+    fail_guidance: "등록금 납입일부터 60일이 지나 신청 기한이 경과했습니다."
+  - id: S-DUPLICATE
+    label: 동일 학기 중복 지원 없음
+    clause: 제6조
+    builtin: no_duplicate
+    keys: [app.target_name, app.semester]
+    fail_guidance: "같은 대상자의 같은 학기 등록금에 대해 이미 접수된 신청이 있습니다."
+
+# Jev 결정 모델에 묻는 조건 (noul / choice / score). depends_on 이 있으면 요청을 두 번으로 나눈다.
+judgments:
+  - id: J-INSTITUTION
+    label: 교육기관·과정 유형
+    type: choice
+    clause_refs: [제3조]
+    inputs:
+      교육기관명: ev.tuition_payment_certificate.school_name
+      과정: ev.tuition_payment_certificate.course
+      대학알리미_조회: ext.university.summary
+    required_inputs: [교육기관명]
+    instructions: "이 교육기관과 과정은 학자금 지원 규정 제3조의 어느 유형에 해당합니까?"
+    criteria:
+      undergraduate: "고등교육법상 대학(대학교·산업대학·교육대학·전문대학·방송통신대학·사이버대학·기술대학)의 학부(학사·전문학사) 과정"
+      graduate: "대학원의 석사·박사 과정"
+      lifelong: "학점은행제 교육훈련기관, 평생교육원, 원격평생교육시설의 과정"
+      private: "사설 학원, 어학원, 직업훈련기관, 인가받지 않은 교육시설"
+    pass_options: [undergraduate, graduate]
+    option_labels: {undergraduate: 대학 학부, graduate: 대학원, lifelong: 평생교육·학점은행, private: 사설·미인가 기관}
+    local_text: "{교육기관명} {과정}"
+    examples:
+      undergraduate: ["한국대학교 학사과정", "서울대학교 학부", "한빛대학교 학사과정", "미래전문대학 전문학사과정", "한국방송통신대학교 학사과정", "새솔사이버대학교 학사과정", "부산교육대학교 학사과정", "한국산업기술대학교 학부과정", "동해대학교 학사과정", "늘푸른대학교 학사과정"]
+      graduate: ["한국대학교 대학원 석사과정", "한빛대학교 대학원 박사과정", "서울대학교 일반대학원 석사과정", "새솔대학교 경영전문대학원 석사과정", "동해대학교 교육대학원 석사과정", "대학원 석박사통합과정"]
+      lifelong: ["한빛대학교 평생교육원 학점은행제과정", "미래원격평생교육원 학점은행제", "늘배움평생교육원 학점은행제과정", "새솔대학교 부설 평생교육원 일반과정", "한국학점은행교육원 학점은행제과정"]
+      private: ["에이스어학원 토익과정", "한국IT아카데미 개발자양성과정", "청운직업전문학교 훈련과정", "글로벌유학원 어학연수과정", "탑클래스입시학원 정규과정"]
+    fail_guidance: "납입증명서의 교육기관({교육기관명})은 지원 대상 교육기관(고등교육법상 대학·대학원)에 해당하지 않습니다."
+
+  - id: J-ITEMS
+    label: 납입 항목의 지원 대상 여부
+    type: choice
+    clause_refs: [제4조]
+    inputs:
+      납입항목: ev.tuition_payment_certificate.payment_items.name
+    required_inputs: [납입항목]
+    instructions: "납입증명서에 기재된 납입 항목들이 학자금 지원 규정 제4조의 지원 대상 비용(입학금·수업료)만으로 이루어져 있습니까?"
+    criteria:
+      all_eligible: "모든 항목이 입학금 또는 정규학기 수업료(등록금)에 해당한다"
+      includes_ineligible: "기숙사비, 학생회비, 동문회비, 교재비, 실습 재료비, 보험료, 계절학기 수업료 등 지원 대상이 아닌 항목이 하나 이상 포함되어 있다"
+    pass_options: [all_eligible]
+    option_labels: {all_eligible: 모두 지원 대상, includes_ineligible: 비대상 항목 포함}
+    local_text: "{납입항목}"
+    examples:
+      all_eligible: ["수업료", "입학금, 수업료", "입학금", "수업료, 입학금", "등록금", "수업료(정규학기)"]
+      includes_ineligible: ["수업료, 기숙사비", "입학금, 수업료, 학생회비", "수업료, 교재비", "수업료, 동문회비", "계절학기 수업료", "수업료, 보험료", "수업료, 졸업앨범비", "기숙사비", "수업료, 실습재료비", "입학금, 수업료, 기숙사비, 학생회비"]
+    fail_guidance: "납입증명서에 지원 대상이 아닌 항목이 포함되어 있습니다({납입항목}). 등록금(입학금·수업료) 납입 내역만 기재된 증명서를 다시 발급받아 제출해 주세요."
+
+  - id: J-FORMAL
+    label: 정식 증빙 요건(발급기관장·발급일·직인)
+    type: score
+    clause_refs: [제7조]
+    inputs:
+      서류_제목: ev.tuition_payment_certificate._title
+      발급기관장: ev.tuition_payment_certificate.issuer
+      발급일: ev.tuition_payment_certificate.issue_date
+      직인: ev.tuition_payment_certificate.seal
+      증명서번호: ev.tuition_payment_certificate.certificate_no
+    instructions: "이 서류가 학자금 지원 규정 제7조 ③의 정식 증빙 요건(발급기관의 장 명의, 발급일, 직인)을 갖춘 정도를 평가하십시오. 값이 '확인 안 됨'이면 그 요건은 확인되지 않은 것입니다."
+    criteria:
+      - "발급기관장 명의, 발급일, 직인 중 둘 이상이 확인되지 않아 정식 증빙으로 볼 수 없다"
+      - "세 요건 중 하나가 확인되지 않는다"
+      - "발급기관장 명의, 발급일, 직인이 모두 확인되는 정식 증명서이다"
+    pass_min_level: 2
+    local_features: {required_present: [발급기관장, 발급일, 직인]}
+    fail_guidance: "납입증명서에서 발급기관장 명의·발급일·직인 중 일부를 확인할 수 없습니다. 학교 직인이 찍힌 정식 납입증명서를 제출해 주세요."
+
+  - id: J-ELIGIBLE-COURSE
+    label: 대상자별 과정 지원 가능 여부
+    type: noul
+    clause_refs: [제2조, 제3조]
+    depends_on: [J-INSTITUTION]
+    inputs:
+      대상자와의_관계: app.relationship
+      과정_유형: judgments.J-INSTITUTION.answer_label
+    required_inputs: [대상자와의_관계, 과정_유형]
+    instructions: "대상자와의 관계와 과정 유형을 볼 때, 학자금 지원 규정 제2조 ④와 제3조에 따라 이 과정은 지원 대상입니까? (대학원 과정은 구성원 본인만 지원)"
+    criteria:
+      "true": "대학 학부 과정이거나, 대상자가 구성원 본인인 대학원 과정이다"
+      "false": "자녀의 대학원 과정이거나, 지원 대상 교육기관이 아닌 기관의 과정이다"
+    local_text: "{과정_유형} / {대상자와의_관계}"
+    examples:
+      "true": ["대학 학부 / 본인", "대학 학부 / 자녀", "대학원 / 본인"]
+      "false": ["대학원 / 자녀", "평생교육·학점은행 / 본인", "평생교육·학점은행 / 자녀", "사설·미인가 기관 / 본인", "사설·미인가 기관 / 자녀"]
+    fail_guidance: "{대상자와의_관계}의 {과정_유형} 과정은 지원 대상이 아닙니다(대학원 과정은 구성원 본인만 지원)."

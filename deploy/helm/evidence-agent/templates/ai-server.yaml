@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-ai-server
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.aiServer.replicas }}
+  strategy:
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "ai-server") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ea.labels" . | nindent 8 }}
+        {{- include "ea.selector" (dict "root" . "name" "ai-server") | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      {{- include "ea.pullSecrets" . | nindent 6 }}
+      automountServiceAccountToken: false
+      securityContext: {{- include "ea.podSecurity" . | nindent 8 }}
+      containers:
+        - name: ai-server
+          image: {{ include "ea.image" (dict "root" . "image" .Values.aiServer.image) }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef: {name: {{ .Release.Name }}-ai-server}
+          env:
+            {{- range $k := list "AI_INTERNAL_TOKEN" "JEV_API_KEY" "OPENAI_API_KEY" }}
+            - name: {{ $k }}
+              valueFrom:
+                secretKeyRef: {name: {{ include "ea.secretName" $ }}, key: {{ $k }}, optional: {{ ne $k "AI_INTERNAL_TOKEN" }}}
+            {{- end }}
+          ports:
+            - {name: http, containerPort: 8000}
+          startupProbe:          # OCR 모델 로딩 시간
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 5
+            failureThreshold: 36
+          readinessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /healthz, port: http}
+            periodSeconds: 20
+            timeoutSeconds: 5
+          resources: {{- toYaml .Values.aiServer.resources | nindent 12 }}
+          securityContext: {{- include "ea.containerSecurity" . | nindent 12 }}
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - {name: tmp, emptyDir: {}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-ai-server
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  selector: {{- include "ea.selector" (dict "root" . "name" "ai-server") | nindent 4 }}
+  ports:
+    - {name: http, port: 8000, targetPort: http}

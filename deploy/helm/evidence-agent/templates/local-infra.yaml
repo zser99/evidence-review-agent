@@ -1,0 +1,113 @@
+{{- /* AWS 관리형 서비스(RDS, S3)가 없는 로컬 클러스터용 대체 구성요소. EKS에서는 둘 다 끈다. */ -}}
+{{- if .Values.postgres.internal.enabled }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ .Release.Name }}-postgres
+  replicas: 1
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "postgres") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ea.labels" . | nindent 8 }}
+        {{- include "ea.selector" (dict "root" . "name" "postgres") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        fsGroup: 70
+        seccompProfile: {type: RuntimeDefault}
+      containers:
+        - name: postgres
+          image: {{ .Values.postgres.internal.image }}
+          env:
+            - {name: POSTGRES_DB, value: {{ .Values.postgres.database | quote }}}
+            - {name: POSTGRES_USER, value: {{ .Values.postgres.username | quote }}}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: {{ include "ea.secretName" . }}, key: DB_PASSWORD}
+            - {name: PGDATA, value: /var/lib/postgresql/data/pgdata}
+          ports:
+            - {name: pg, containerPort: 5432}
+          readinessProbe:
+            exec: {command: ["pg_isready", "-U", {{ .Values.postgres.username | quote }}, "-d", {{ .Values.postgres.database | quote }}]}
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+          volumeMounts:
+            - {name: data, mountPath: /var/lib/postgresql/data}
+            - {name: run, mountPath: /var/run/postgresql}
+      volumes:
+        - {name: run, emptyDir: {}}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{- with .Values.postgres.internal.storageClass }}
+        storageClassName: {{ . | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.postgres.internal.storage }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-postgres
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  selector: {{- include "ea.selector" (dict "root" . "name" "postgres") | nindent 4 }}
+  ports:
+    - {name: pg, port: 5432, targetPort: pg}
+---
+{{- end }}
+{{- if .Values.s3.internal.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-s3
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy: {type: Recreate}
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "s3") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ea.labels" . | nindent 8 }}
+        {{- include "ea.selector" (dict "root" . "name" "s3") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: s3
+          image: {{ .Values.s3.internal.image }}
+          env:
+            - {name: COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS, value: {{ .Values.s3.bucket | quote }}}
+          ports:
+            - {name: http, containerPort: 9090}
+          readinessProbe:
+            tcpSocket: {port: http}
+            periodSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: {drop: ["ALL"]}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-s3
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  selector: {{- include "ea.selector" (dict "root" . "name" "s3") | nindent 4 }}
+  ports:
+    - {name: http, port: 9090, targetPort: http}
+{{- end }}

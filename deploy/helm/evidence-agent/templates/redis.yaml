@@ -1,0 +1,46 @@
+# Redis: 대학 정보 조회 캐시. 캐시 전용이라 디스크에 남기지 않는다(재시작하면 다시 채워진다).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-redis
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "redis") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ea.labels" . | nindent 8 }}
+        {{- include "ea.selector" (dict "root" . "name" "redis") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        {{- include "ea.podSecurity" . | nindent 8 }}
+        runAsUser: 999
+        runAsGroup: 999
+      containers:
+        - name: redis
+          image: {{ .Values.redis.image }}
+          args: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "96mb", "--maxmemory-policy", "allkeys-lru"]
+          ports:
+            - {name: redis, containerPort: 6379}
+          readinessProbe:
+            tcpSocket: {port: redis}
+            periodSeconds: 5
+          resources: {{- toYaml .Values.redis.resources | nindent 12 }}
+          securityContext: {{- include "ea.containerSecurity" . | nindent 12 }}
+          volumeMounts:
+            - {name: data, mountPath: /data}
+      volumes:
+        - {name: data, emptyDir: {}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-redis
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  selector: {{- include "ea.selector" (dict "root" . "name" "redis") | nindent 4 }}
+  ports:
+    - {name: redis, port: 6379, targetPort: redis}

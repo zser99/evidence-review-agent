@@ -1,0 +1,71 @@
+:root {
+  --ink: #1c2530;
+  --muted: #6b7684;
+  --line: #e3e7ec;
+  --bg: #f5f7fa;
+  --brand: #1f4e79;
+  --ok: #1a7f4b;
+  --ok-bg: #e7f5ed;
+  --bad: #c0392b;
+  --bad-bg: #fdecea;
+  --warn: #a15c00;
+  --warn-bg: #fff4dd;
+  --info-bg: #eaf2fb;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', system-ui, sans-serif;
+  font-size: 0.925rem;
+}
+.navbar-brand { font-weight: 700; letter-spacing: -0.02em; }
+.app-nav { background: var(--brand); }
+.app-nav .nav-link { color: rgba(255, 255, 255, 0.78); padding: 0.45rem 0.85rem; border-radius: 6px; }
+.app-nav .nav-link:hover { color: #fff; }
+.app-nav .nav-link.router-link-active { color: #fff; background: rgba(255, 255, 255, 0.16); }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+.panel-head { padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+.panel-body { padding: 1rem; }
+.section-no { display: inline-flex; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--brand); color: #fff; font-size: 0.78rem; align-items: center; justify-content: center; }
+.table > :not(caption) > * > * { padding: 0.5rem 0.65rem; vertical-align: middle; }
+.table thead th { font-size: 0.8rem; color: var(--muted); font-weight: 600; background: #fafbfc; white-space: nowrap; }
+.tag { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 999px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+.tag-ok { background: var(--ok-bg); color: var(--ok); }
+.tag-bad { background: var(--bad-bg); color: var(--bad); }
+.tag-warn { background: var(--warn-bg); color: var(--warn); }
+.tag-mute { background: #eef1f4; color: var(--muted); }
+.tag-info { background: var(--info-bg); color: var(--brand); }
+.verdict { border-radius: 10px; padding: 1.1rem 1.25rem; border: 1px solid; }
+.verdict-APPROVE { background: var(--ok-bg); border-color: #b9e0c9; }
+.verdict-REJECT { background: var(--bad-bg); border-color: #f3c3bd; }
+.verdict-REVIEW { background: var(--warn-bg); border-color: #f1d9a5; }
+.verdict h2 { font-size: 1.25rem; font-weight: 700; margin: 0; }
+.guidance { white-space: pre-wrap; line-height: 1.65; margin: 0; font-family: inherit; font-size: 0.925rem; }
+.confbar { display: inline-flex; align-items: center; gap: 0.45rem; min-width: 7.5rem; }
+.confbar .track { flex: 1; height: 6px; background: #e6eaee; border-radius: 3px; overflow: hidden; min-width: 3.5rem; }
+.confbar .fill { height: 100%; border-radius: 3px; }
+.confbar .num { font-variant-numeric: tabular-nums; font-size: 0.82rem; width: 2.6rem; text-align: right; }
+.docview { background: #dfe3e8; border-radius: 8px; overflow: auto; max-height: 78vh; }
+/* 추출 위치(svg)는 스크롤 영역이 아니라 이미지 자체의 크기에 맞춘다 */
+.docpage { position: relative; }
+.docpage img { display: block; width: 100%; }
+.docpage svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+.cond-table td:first-child { min-width: 11.5rem; }
+.field-row { cursor: pointer; }
+.field-row.active > td { background: #fff8e1 !important; }
+.kpi { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; height: 100%; }
+.kpi .label { color: var(--muted); font-size: 0.82rem; }
+.kpi .value { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; }
+.kpi .sub { color: var(--muted); font-size: 0.8rem; }
+.type-card { cursor: pointer; border: 2px solid var(--line); border-radius: 10px; padding: 1rem; background: #fff; height: 100%; transition: border-color 0.12s; }
+.type-card:hover { border-color: #9fb8d2; }
+.type-card.selected { border-color: var(--brand); background: var(--info-bg); }
+.dropzone { border: 1.5px dashed #b8c2cc; border-radius: 8px; padding: 0.9rem; text-align: center; color: var(--muted); background: #fafbfc; cursor: pointer; }
+.dropzone.over { border-color: var(--brand); background: var(--info-bg); }
+.mono { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; font-size: 0.82rem; }
+.clause { background: #f8f9fb; border-left: 3px solid var(--brand); padding: 0.55rem 0.75rem; border-radius: 0 6px 6px 0; font-size: 0.86rem; line-height: 1.6; }
+.small-muted { color: var(--muted); font-size: 0.82rem; }
+.clickable { cursor: pointer; }
+.bar { height: 8px; border-radius: 4px; background: #e6eaee; overflow: hidden; }
+.bar > div { height: 100%; }
+textarea.code { font-family: ui-monospace, Consolas, monospace; font-size: 0.8rem; line-height: 1.45; }

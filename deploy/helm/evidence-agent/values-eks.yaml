@@ -1,0 +1,53 @@
+# AWS EKS 운영 값. Argo CD가 이 파일을 읽어 배포하고, Jenkins가 빌드마다 image.tag 를 갱신한다.
+# <...> 로 표시한 값은 실제 계정·도메인 값으로 바꿔야 한다.
+
+image:
+  registry: <harbor-host>/evidence
+  tag: latest                               # Jenkins가 갱신 (예: 42-a1b2c3d)
+  pullSecrets:
+    - name: harbor-pull
+
+config:
+  seedDemoUsers: true                       # 발표 데모용. 실제 구성원 데이터를 넣기 전에 false 로 바꾼다
+  decisionProvider: auto
+  jevModel: typesafe/jev-1.14
+
+# 민감한 값은 Git에 두지 않는다. deploy/README.md 의 'Secret 만들기'대로 클러스터에 직접 만든다.
+secrets:
+  create: false
+  existingSecret: evidence-agent-secrets
+
+postgres:
+  host: <rds-endpoint>.ap-northeast-2.rds.amazonaws.com
+  port: 5432
+  database: evidence
+  username: evidence
+
+s3:
+  bucket: <evidence-bucket-name>
+  region: ap-northeast-2
+
+serviceAccount:
+  create: true
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::<account-id>:role/evidence-agent-backend   # S3 버킷 접근(IRSA)
+
+qdrant:
+  persistence:
+    enabled: true
+    storageClass: efs-sc                    # Amazon EFS CSI 드라이버
+    accessMode: ReadWriteMany
+    size: 5Gi
+
+ingress:
+  enabled: true
+  className: alb
+  host: <evidence.example.com>
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing        # 사내 전용이면 internal
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:<account-id>:certificate/<id>
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=180

@@ -1,0 +1,124 @@
+# 로컬에서 전체 구성을 그대로 띄운다 (운영 구성과 같은 구성요소, AWS 관리형 서비스만 로컬 대체).
+#   Nginx+Vue ─/api→ Spring Boot ─→ FastAPI ─→ Qdrant
+#                       ├→ PostgreSQL(RDS 대체) · Redis · S3 호환 저장소(S3 대체)
+#
+#   cp .env.example .env   # (선택) JEV_API_KEY / OPENAI_API_KEY 입력
+#   docker compose up -d --build
+#   → http://localhost:8088   데모 계정: employee1 / hr1 / admin1 (비밀번호 demo1234)
+name: evidence-agent
+
+services:
+  frontend:
+    build: ./frontend
+    image: evidence/frontend:local
+    environment:
+      BACKEND_URL: http://backend:8080
+    ports:
+      - "${WEB_PORT:-8088}:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: evidence/backend:local
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/evidence
+      DB_USERNAME: evidence
+      DB_PASSWORD: ${DB_PASSWORD:-evidence-local}
+      REDIS_HOST: redis
+      AI_BASE_URL: http://ai-server:8000
+      AI_INTERNAL_TOKEN: ${AI_INTERNAL_TOKEN:-local-internal-token}
+      STORAGE_TYPE: s3
+      S3_ENDPOINT: http://s3:9090
+      S3_BUCKET: evidence-files
+      S3_ACCESS_KEY: local
+      S3_SECRET_KEY: local-secret
+      S3_PATH_STYLE: "true"
+      APP_JWT_SECRET: ${APP_JWT_SECRET:-local-dev-only-secret-change-me-0123456789}
+      APP_DEMO_PASSWORD: ${APP_DEMO_PASSWORD:-demo1234}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      s3:
+        condition: service_started
+      ai-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080 && printf \"GET /actuator/health/readiness HTTP/1.0\\r\\n\\r\\n\" >&3 && grep -q UP <&3'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+    restart: unless-stopped
+
+  ai-server:
+    build: ./ai-server
+    image: evidence/ai-server:local
+    environment:
+      AI_INTERNAL_TOKEN: ${AI_INTERNAL_TOKEN:-local-internal-token}
+      QDRANT_URL: http://qdrant:6333
+      # 결정 모델: JEV_API_KEY가 있으면 Jev, 없으면 OPENAI_API_KEY(로그 확률), 둘 다 없으면 로컬 보정 분류기
+      DECISION_PROVIDER: ${DECISION_PROVIDER:-auto}
+      JEV_API_KEY: ${JEV_API_KEY:-}
+      JEV_BASE_URL: ${JEV_BASE_URL:-https://api.aimlapi.com}
+      JEV_MODEL: ${JEV_MODEL:-typesafe/jev-1.14}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_CHAT_MODEL: ${OPENAI_CHAT_MODEL:-gpt-4o-mini}
+    depends_on:
+      - qdrant
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: evidence
+      POSTGRES_USER: evidence
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-evidence-local}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U evidence -d evidence"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:v1.20.1
+    volumes:
+      - qdrant:/qdrant/storage
+    restart: unless-stopped
+
+  # 로컬용 S3 호환 저장소(운영은 Amazon S3). 증빙 원본·미리보기·규정집 원문을 보관한다.
+  s3:
+    image: adobe/s3mock:5.2.3
+    user: "0:0"            # 이름 있는 볼륨(/data)의 소유자가 root라서 로컬에서만 root로 실행
+    environment:
+      COM_ADOBE_TESTING_S3MOCK_STORE_INITIAL_BUCKETS: evidence-files
+      COM_ADOBE_TESTING_S3MOCK_STORE_ROOT: /data
+      COM_ADOBE_TESTING_S3MOCK_STORE_RETAIN_FILES_ON_EXIT: "true"
+    volumes:
+      - s3data:/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  qdrant:
+  s3data:

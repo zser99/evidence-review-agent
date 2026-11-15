@@ -1,0 +1,110 @@
+# 기본값. 환경별 값은 values-eks.yaml(AWS EKS) / values-local.yaml(로컬 쿠버네티스)로 덮어쓴다.
+
+image:
+  registry: harbor.example.com/evidence   # Harbor 프로젝트 경로
+  tag: latest                             # Jenkins가 빌드마다 values-eks.yaml의 값을 갱신한다
+  pullPolicy: IfNotPresent
+  pullSecrets: []                         # 예: [{name: harbor-pull}]
+
+frontend:
+  image: frontend
+  replicas: 2
+  resources:
+    requests: {cpu: 50m, memory: 64Mi}
+    limits: {cpu: 500m, memory: 128Mi}
+
+backend:
+  image: backend
+  replicas: 2
+  resources:
+    requests: {cpu: 250m, memory: 768Mi}
+    limits: {cpu: "1", memory: 1Gi}
+
+aiServer:
+  image: ai-server
+  replicas: 1                             # OCR은 프로세스당 직렬 처리 — 처리량은 replicas로 늘린다
+  resources:
+    requests: {cpu: 500m, memory: 1Gi}
+    limits: {cpu: "2", memory: 2Gi}
+
+# 애플리케이션 설정(민감하지 않은 값)
+config:
+  seedDemoUsers: true                     # 데모 계정 생성. 실제 운영에서는 false
+  jwtTtlMinutes: 480
+  decisionProvider: auto                  # auto | jev | openai | local
+  jevBaseUrl: https://api.aimlapi.com
+  jevModel: typesafe/jev-1.14             # 임계값을 보정한 버전에 고정
+  openaiChatModel: gpt-4o-mini
+  universityApiUrl: ""                    # 대학알리미 OpenAPI URL 템플릿({name}, {key})
+
+# 민감한 값. create=false 이면 existingSecret(같은 키 이름)을 쓴다 — External Secrets / Sealed Secrets 권장.
+secrets:
+  create: true
+  existingSecret: ""
+  values:
+    APP_JWT_SECRET: ""                    # 32바이트 이상. 비우면 설치 시 무작위 생성
+    AI_INTERNAL_TOKEN: ""                 # 비우면 무작위 생성
+    DB_PASSWORD: ""
+    APP_DEMO_PASSWORD: "demo1234"
+    JEV_API_KEY: ""
+    OPENAI_API_KEY: ""
+    UNIVERSITY_API_KEY: ""
+
+# PostgreSQL: 운영은 Amazon RDS(external). 로컬 클러스터에서는 internal.enabled=true 로 파드를 띄운다.
+postgres:
+  host: ""                                # RDS 엔드포인트
+  port: 5432
+  database: evidence
+  username: evidence
+  internal:
+    enabled: false
+    image: postgres:16-alpine
+    storage: 2Gi
+    storageClass: ""
+
+# 객체 저장소: 운영은 Amazon S3 + IRSA. 로컬 클러스터에서는 internal.enabled=true 로 S3 호환 저장소를 띄운다.
+s3:
+  bucket: evidence-files
+  region: ap-northeast-2
+  internal:
+    enabled: false
+    image: adobe/s3mock:5.2.3
+
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}                         # eks.amazonaws.com/role-arn: arn:aws:iam::<계정>:role/evidence-backend-s3
+
+redis:
+  image: redis:7-alpine
+  resources:
+    requests: {cpu: 20m, memory: 32Mi}
+    limits: {cpu: 200m, memory: 128Mi}
+
+qdrant:
+  image: qdrant/qdrant:v1.20.1
+  resources:
+    requests: {cpu: 100m, memory: 256Mi}
+    limits: {cpu: "1", memory: 1Gi}
+  persistence:
+    enabled: true
+    storageClass: ""                      # EKS: EFS CSI 드라이버의 StorageClass (예: efs-sc)
+    accessMode: ReadWriteOnce             # EFS는 ReadWriteMany
+    size: 5Gi
+
+service:
+  type: ClusterIP                         # 로컬에서는 NodePort
+  nodePort: null
+
+ingress:
+  enabled: false
+  className: alb
+  host: ""
+  annotations: {}
+  tls: []
+
+networkPolicy:
+  enabled: true
+
+podDisruptionBudget:
+  enabled: true

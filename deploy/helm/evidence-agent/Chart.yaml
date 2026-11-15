@@ -1,0 +1,6 @@
+apiVersion: v2
+name: evidence-agent
+description: 학자금·의료비 지원 증빙 검수 Agent (Nginx+Vue / Spring Boot / FastAPI / Qdrant / Redis)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

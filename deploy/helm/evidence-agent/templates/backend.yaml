@@ -1,0 +1,83 @@
+{{- if .Values.serviceAccount.create }}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "ea.serviceAccountName" . }}
+  labels: {{- include "ea.labels" . | nindent 4 }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-backend
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  strategy:
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "backend") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ea.labels" . | nindent 8 }}
+        {{- include "ea.selector" (dict "root" . "name" "backend") | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      {{- include "ea.pullSecrets" . | nindent 6 }}
+      serviceAccountName: {{ include "ea.serviceAccountName" . }}
+      securityContext: {{- include "ea.podSecurity" . | nindent 8 }}
+      terminationGracePeriodSeconds: 40
+      containers:
+        - name: backend
+          image: {{ include "ea.image" (dict "root" . "image" .Values.backend.image) }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef: {name: {{ .Release.Name }}-backend}
+          env:
+            {{- range $k := list "APP_JWT_SECRET" "AI_INTERNAL_TOKEN" "DB_PASSWORD" "APP_DEMO_PASSWORD" "UNIVERSITY_API_KEY" }}
+            - name: {{ $k }}
+              valueFrom:
+                secretKeyRef: {name: {{ include "ea.secretName" $ }}, key: {{ $k }}, optional: {{ has $k (list "UNIVERSITY_API_KEY" "APP_DEMO_PASSWORD") }}}
+            {{- end }}
+          ports:
+            - {name: http, containerPort: 8080}
+          startupProbe:
+            httpGet: {path: /actuator/health/liveness, port: http}
+            periodSeconds: 5
+            failureThreshold: 36
+          readinessProbe:
+            httpGet: {path: /actuator/health/readiness, port: http}
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /actuator/health/liveness, port: http}
+            periodSeconds: 20
+          lifecycle:
+            preStop:
+              exec: {command: ["sleep", "10"]}
+          resources: {{- toYaml .Values.backend.resources | nindent 12 }}
+          securityContext: {{- include "ea.containerSecurity" . | nindent 12 }}
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - {name: tmp, emptyDir: {}}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: {{- include "ea.selector" (dict "root" . "name" "backend") | nindent 14 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-backend
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  selector: {{- include "ea.selector" (dict "root" . "name" "backend") | nindent 4 }}
+  ports:
+    - {name: http, port: 8080, targetPort: http}

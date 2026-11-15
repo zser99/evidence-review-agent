@@ -1,0 +1,69 @@
+# Qdrant: 규정 조항 벡터 색인. 버전·조항 메타데이터로 걸러 검색한다. 데이터는 영구 볼륨(EKS: Amazon EFS)에 둔다.
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-qdrant
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ .Release.Name }}-qdrant
+  replicas: 1
+  selector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "qdrant") | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ea.labels" . | nindent 8 }}
+        {{- include "ea.selector" (dict "root" . "name" "qdrant") | nindent 8 }}
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        {{- include "ea.podSecurity" . | nindent 8 }}
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: qdrant
+          image: {{ .Values.qdrant.image }}
+          ports:
+            - {name: http, containerPort: 6333}
+          readinessProbe:
+            httpGet: {path: /readyz, port: http}
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /livez, port: http}
+            periodSeconds: 20
+          resources: {{- toYaml .Values.qdrant.resources | nindent 12 }}
+          securityContext: {{- include "ea.containerSecurity" . | nindent 12 }}
+          volumeMounts:
+            - {name: storage, mountPath: /qdrant/storage}
+            - {name: snapshots, mountPath: /qdrant/snapshots}
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - {name: snapshots, emptyDir: {}}
+        - {name: tmp, emptyDir: {}}
+        {{- if not .Values.qdrant.persistence.enabled }}
+        - {name: storage, emptyDir: {}}
+        {{- end }}
+  {{- if .Values.qdrant.persistence.enabled }}
+  volumeClaimTemplates:
+    - metadata:
+        name: storage
+      spec:
+        accessModes: [{{ .Values.qdrant.persistence.accessMode | quote }}]
+        {{- with .Values.qdrant.persistence.storageClass }}
+        storageClassName: {{ . | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.qdrant.persistence.size }}
+  {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-qdrant
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  selector: {{- include "ea.selector" (dict "root" . "name" "qdrant") | nindent 4 }}
+  ports:
+    - {name: http, port: 6333, targetPort: http}

@@ -1,0 +1,77 @@
+{
+ "generated_for": "2026-11-15",
+ "login": {
+  "username": "employee1",
+  "password": "demo1234",
+  "name": "김민준"
+ },
+ "steps": [
+  {
+   "step": 1,
+   "title": "학자금 · 금액 불일치 → 보완 안내와 함께 반려",
+   "support_type": "tuition",
+   "file": "01_학자금_납입증명서_금액불일치.png",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "school_name": "한빛대학교 대학원",
+    "semester": "2026-2",
+    "requested_amount": 4200000
+   },
+   "expect": "증빙의 실납입액 3,700,000원 ≠ 신청 금액 4,200,000원 → 반려 + 보완 안내"
+  },
+  {
+   "step": 2,
+   "title": "학자금 · 제대로 된 납입증명서로 교체 → 높은 확신도로 승인",
+   "support_type": "tuition",
+   "file": "02_학자금_납입증명서_정상.png",
+   "form": "1번과 같은 신청서에서 증빙만 교체 후 다시 제출",
+   "expect": "모든 조건 충족 → 승인"
+  },
+  {
+   "step": 3,
+   "title": "의료비 · 진료비 영수증 한 장이 같은 화면에서 판정",
+   "support_type": "medical",
+   "file": "03_의료비_진료비영수증_정상.png",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-11-10",
+    "requested_amount": 47300
+   },
+   "expect": "치료 목적 진료 → 승인"
+  },
+  {
+   "step": 4,
+   "title": "(선택) 의료비 · 성형 수술 영수증 → 반려",
+   "support_type": "medical",
+   "file": "04_의료비_진료비영수증_성형.png",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "hospital_name": "아름다운성형외과의원",
+    "receipt_date": "2026-11-10",
+    "requested_amount": 1500000
+   },
+   "expect": "미용·성형 목적 → 반려"
+  },
+  {
+   "step": 5,
+   "title": "(선택) 학자금 · 자녀 · 기숙사비 포함 증명서 + 가족관계증명서",
+   "support_type": "tuition",
+   "file": [
+    "05_학자금_자녀_납입증명서_기숙사비포함.pdf",
+    "06_가족관계증명서.png"
+   ],
+   "form": {
+    "target_name": "김하은",
+    "relationship": "자녀",
+    "school_name": "새솔대학교",
+    "semester": "2026-2",
+    "requested_amount": 4550000
+   },
+   "expect": "비대상 항목(기숙사비) 포함 → 반려"
+  }
+ ]
+}

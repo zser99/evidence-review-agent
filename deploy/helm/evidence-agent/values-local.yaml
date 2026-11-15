@@ -1,0 +1,41 @@
+# 로컬 쿠버네티스(Docker Desktop / kind)용 값: RDS·S3 대신 클러스터 안의 PostgreSQL·S3 호환 저장소를 쓴다.
+#   docker compose build
+#   helm upgrade --install evidence deploy/helm/evidence-agent -n evidence --create-namespace -f deploy/helm/evidence-agent/values-local.yaml
+#   → http://localhost:30088
+
+image:
+  registry: evidence          # docker compose build 가 만든 evidence/<name>:local
+  tag: local
+  pullPolicy: IfNotPresent
+
+frontend:
+  replicas: 1
+backend:
+  replicas: 1
+  resources:
+    requests: {cpu: 100m, memory: 512Mi}
+    limits: {cpu: "1", memory: 1Gi}
+aiServer:
+  resources:
+    requests: {cpu: 200m, memory: 768Mi}
+    limits: {cpu: "2", memory: 2Gi}
+
+secrets:
+  create: true
+  values:
+    DB_PASSWORD: evidence-local
+    APP_DEMO_PASSWORD: demo1234
+
+postgres:
+  internal:
+    enabled: true
+s3:
+  internal:
+    enabled: true
+
+service:
+  type: NodePort
+  nodePort: 30088
+
+networkPolicy:
+  enabled: true

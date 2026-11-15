@@ -1,0 +1,45 @@
+{{- if .Values.networkPolicy.enabled }}
+{{- $r := .Release.Name }}
+# 기본은 모두 차단하고, 아키텍처 구성도의 화살표만 연다.
+#   외부 → frontend → backend → ai-server → qdrant
+#                       backend → redis / postgres / s3,   ai-server → 외부 AI API(HTTPS)
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ $r }}-default-deny
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ $r }}
+  policyTypes: [Ingress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ $r }}-frontend
+  labels: {{- include "ea.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels: {{- include "ea.selector" (dict "root" . "name" "frontend") | nindent 6 }}
+  policyTypes: [Ingress]
+  ingress:
+    - ports: [{port: 8080}]          # ALB(대상 유형 ip)·노드에서 들어오는 트래픽
+{{- range $rule := list (dict "to" "backend" "from" "frontend" "port" 8080) (dict "to" "ai-server" "from" "backend" "port" 8000) (dict "to" "qdrant" "from" "ai-server" "port" 6333) (dict "to" "redis" "from" "backend" "port" 6379) (dict "to" "postgres" "from" "backend" "port" 5432) (dict "to" "s3" "from" "backend" "port" 9090) }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ $r }}-{{ $rule.to }}
+  labels: {{- include "ea.labels" $ | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels: {{- include "ea.selector" (dict "root" $ "name" $rule.to) | nindent 6 }}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels: {{- include "ea.selector" (dict "root" $ "name" $rule.from) | nindent 14 }}
+      ports: [{port: {{ $rule.port }}}]
+{{- end }}
+{{- end }}

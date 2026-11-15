@@ -1,0 +1,16 @@
+# 증빙 검수 AI 서버 — 운영 이미지에 들어가는 의존성
+fastapi==0.163.0
+uvicorn[standard]==0.54.0
+python-multipart==0.0.33
+pydantic==2.14.3
+pydantic-settings==2.16.3
+httpx==0.28.1
+PyYAML==6.0.2
+numpy==2.3.5
+pillow==13.0.0
+pymupdf==2.1
+# OCR: PaddleOCR PP-OCRv5(검출 + 한국어 인식) 모델을 ONNX Runtime으로 실행
+rapidocr==3.10.0
+onnxruntime==1.32.0
+# 규정 조항 벡터 검색
+qdrant-client==1.20.0

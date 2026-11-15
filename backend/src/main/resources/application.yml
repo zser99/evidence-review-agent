@@ -1,0 +1,107 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: evidence-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/evidence}
+    username: ${DB_USERNAME:evidence}
+    password: ${DB_PASSWORD:evidence}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2s
+  cache:
+    type: redis
+    redis:
+      time-to-live: 24h
+      key-prefix: "evidence:"
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 20MB
+  jackson:
+    default-property-inclusion: always
+    time-zone: Asia/Seoul
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    redis:
+      enabled: false   # 캐시 장애가 readiness를 내리지 않도록(캐시는 실패해도 원본 조회로 대체)
+
+app:
+  jwt-secret: ${APP_JWT_SECRET:change-me-change-me-change-me-change-me-32b}
+  jwt-ttl-minutes: ${APP_JWT_TTL_MINUTES:480}
+  seed-dir: ${APP_SEED_DIR:../seed}
+  seed-demo-users: ${APP_SEED_DEMO_USERS:true}
+  demo-password: ${APP_DEMO_PASSWORD:demo1234}
+  ai:
+    base-url: ${AI_BASE_URL:http://localhost:8000}
+    internal-token: ${AI_INTERNAL_TOKEN:}
+    timeout-seconds: ${AI_TIMEOUT_SECONDS:120}
+  storage:
+    type: ${STORAGE_TYPE:s3}              # s3 | local
+    bucket: ${S3_BUCKET:evidence-files}
+    endpoint: ${S3_ENDPOINT:}             # MinIO 등 S3 호환 저장소일 때만 지정
+    region: ${AWS_REGION:ap-northeast-2}
+    access-key: ${S3_ACCESS_KEY:}         # 비우면 기본 자격 증명 체인(EKS IRSA 등)을 쓴다
+    secret-key: ${S3_SECRET_KEY:}
+    path-style: ${S3_PATH_STYLE:false}
+    local-dir: ${STORAGE_LOCAL_DIR:./data/storage}
+  university:
+    api-url: ${UNIVERSITY_API_URL:}       # 대학알리미 OpenAPI 주소(키 발급 후 설정). 비우면 내장 목록만 사용
+    api-key: ${UNIVERSITY_API_KEY:}
+
+logging:
+  level:
+    com.sora.evidence: INFO
+
+---
+# 로컬 개발·테스트: 외부 인프라 없이 실행 (H2 + 로컬 파일 저장 + 메모리 캐시)
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:h2:mem:evidence;DB_CLOSE_DELAY=-1;MODE=PostgreSQL
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+  cache:
+    type: simple
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+app:
+  storage:
+    type: local

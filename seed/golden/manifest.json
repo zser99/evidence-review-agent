@@ -1,0 +1,4970 @@
+{
+ "name": "가상 증빙 정답 세트",
+ "version": "1.0",
+ "generated_with": "tools/generate_golden.py (seed 20261115)",
+ "description": "승인·반려 정답과 사유를 붙인 가상 학자금·의료비 증빙 세트. 실제 개인정보를 포함하지 않는다.",
+ "cases": [
+  {
+   "id": "T01",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 표 서식",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-09-23",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "school_name": "한빛대학교",
+    "semester": "2026-2",
+    "requested_amount": 3832000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T01_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "김민준",
+      "school_name": "한빛대학교",
+      "course": "학사과정",
+      "department": "간호학과",
+      "semester": "2026-2",
+      "tuition_total": 3832000,
+      "paid_amount": 3832000,
+      "payment_date": "2026-08-24",
+      "certificate_no": "2026-89299",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3832000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-31",
+      "issuer": "한빛대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T02",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 가족관계증명서 포함",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-06",
+   "form": {
+    "target_name": "이가은",
+    "relationship": "자녀",
+    "school_name": "새솔대학교",
+    "semester": "2026-2",
+    "requested_amount": 3387000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T02_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "이가은",
+      "school_name": "새솔대학교",
+      "course": "학사과정",
+      "department": "간호학과",
+      "semester": "2026-2",
+      "tuition_total": 3387000,
+      "paid_amount": 3387000,
+      "payment_date": "2026-08-17",
+      "certificate_no": "2026-34477",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3387000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-20",
+      "issuer": "새솔대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T02_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "이서연",
+      "child_names": [
+       "이가은"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T03",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 세로형 서식",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-18",
+   "form": {
+    "target_name": "박도윤",
+    "relationship": "본인",
+    "school_name": "동해대학교",
+    "semester": "2026-2",
+    "requested_amount": 2667000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T03_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "박도윤",
+      "school_name": "동해대학교",
+      "course": "학사과정",
+      "department": "컴퓨터공학과",
+      "semester": "2026-2",
+      "tuition_total": 3167000,
+      "paid_amount": 2667000,
+      "payment_date": "2026-08-24",
+      "certificate_no": "2026-81404",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3167000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-28",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T04",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 장학금 차감(JPG)",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-09-09",
+   "form": {
+    "target_name": "최지호",
+    "relationship": "자녀",
+    "school_name": "늘푸른대학교",
+    "semester": "2026-2",
+    "requested_amount": 2626000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T04_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "최지호",
+      "school_name": "늘푸른대학교",
+      "course": "학사과정",
+      "department": "경영학과",
+      "semester": "2026-2",
+      "tuition_total": 3826000,
+      "paid_amount": 2626000,
+      "payment_date": "2026-08-22",
+      "certificate_no": "2026-52654",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3826000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-28",
+      "issuer": "늘푸른대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T04_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "최지우",
+      "child_names": [
+       "최지호"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T05",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 전문대학(PDF)",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-09-07",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "school_name": "미래전문대학",
+    "semester": "2026-2",
+    "requested_amount": 3938000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T05_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "정하준",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "경영학과",
+      "semester": "2026-2",
+      "tuition_total": 4438000,
+      "paid_amount": 3938000,
+      "payment_date": "2026-08-28",
+      "certificate_no": "2026-24806",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4438000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-09-03",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T06",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 입학금+수업료(PDF)",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-08-28",
+   "form": {
+    "target_name": "강태민",
+    "relationship": "자녀",
+    "school_name": "미래전문대학",
+    "semester": "2026-2",
+    "requested_amount": 4334000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T06_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "강태민",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "시각디자인학과",
+      "semester": "2026-2",
+      "tuition_total": 4334000,
+      "paid_amount": 4334000,
+      "payment_date": "2026-08-17",
+      "certificate_no": "2026-50943",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "입학금",
+        "amount": 300000
+       },
+       {
+        "name": "수업료",
+        "amount": 4034000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-19",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T06_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "강수아",
+      "child_names": [
+       "강태민"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T07",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 사이버대학",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-09-02",
+   "form": {
+    "target_name": "조현우",
+    "relationship": "본인",
+    "school_name": "새솔사이버대학교",
+    "semester": "2026-2",
+    "requested_amount": 2772000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T07_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "조현우",
+      "school_name": "새솔사이버대학교",
+      "course": "학사과정",
+      "department": "기계공학과",
+      "semester": "2026-2",
+      "tuition_total": 3272000,
+      "paid_amount": 2772000,
+      "payment_date": "2026-08-25",
+      "certificate_no": "2026-70199",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3272000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-29",
+      "issuer": "새솔사이버대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T08",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 방송통신대학",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-09-16",
+   "form": {
+    "target_name": "윤성민",
+    "relationship": "자녀",
+    "school_name": "한국방송통신대학교",
+    "semester": "2026-2",
+    "requested_amount": 380000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T08_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "윤성민",
+      "school_name": "한국방송통신대학교",
+      "course": "학사과정",
+      "department": "컴퓨터공학과",
+      "semester": "2026-2",
+      "tuition_total": 380000,
+      "paid_amount": 380000,
+      "payment_date": "2026-08-28",
+      "certificate_no": "2026-25576",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 380000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-09-03",
+      "issuer": "한국방송통신대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T08_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "윤채원",
+      "child_names": [
+       "윤성민"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T09",
+   "support_type": "tuition",
+   "scenario": "approve_grad_self",
+   "title": "정상 승인 · 본인 · 대학원 석사",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-08-29",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "school_name": "한빛대학교 대학원",
+    "semester": "2026-2",
+    "requested_amount": 1713000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T09_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "김민준",
+      "school_name": "한빛대학교 대학원",
+      "course": "석사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 2713000,
+      "paid_amount": 1713000,
+      "payment_date": "2026-08-18",
+      "certificate_no": "2026-13031",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2713000
+       }
+      ],
+      "scholarship_amount": 1000000,
+      "issue_date": "2026-08-22",
+      "issuer": "한빛대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "graduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T10",
+   "support_type": "tuition",
+   "scenario": "approve_grad_self",
+   "title": "정상 승인 · 본인 · 대학원 박사(PDF)",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-08-27",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "school_name": "새솔대학교 대학원",
+    "semester": "2026-2",
+    "requested_amount": 2285000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T10_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "이서연",
+      "school_name": "새솔대학교 대학원",
+      "course": "박사과정",
+      "department": "사회복지학과",
+      "semester": "2026-2",
+      "tuition_total": 3485000,
+      "paid_amount": 2285000,
+      "payment_date": "2026-08-20",
+      "certificate_no": "2026-28014",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3485000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-26",
+      "issuer": "새솔대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "graduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T11",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 교육대학(스캔 PDF)",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-01",
+   "form": {
+    "target_name": "박하준",
+    "relationship": "자녀",
+    "school_name": "한울교육대학교",
+    "semester": "2026-2",
+    "requested_amount": 2240000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T11_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "박하준",
+      "school_name": "한울교육대학교",
+      "course": "학사과정",
+      "department": "경영학과",
+      "semester": "2026-2",
+      "tuition_total": 3240000,
+      "paid_amount": 2240000,
+      "payment_date": "2026-08-26",
+      "certificate_no": "2026-41021",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3240000
+       }
+      ],
+      "scholarship_amount": 1000000,
+      "issue_date": "2026-08-31",
+      "issuer": "한울교육대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T11_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "박도윤",
+      "child_names": [
+       "박하준"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "scanpdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T12",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 전문대학 장학금",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-09-13",
+   "form": {
+    "target_name": "최지호",
+    "relationship": "자녀",
+    "school_name": "누리전문대학",
+    "semester": "2026-2",
+    "requested_amount": 4141000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T12_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "최지호",
+      "school_name": "누리전문대학",
+      "course": "전문학사과정",
+      "department": "국어국문학과",
+      "semester": "2026-2",
+      "tuition_total": 4641000,
+      "paid_amount": 4141000,
+      "payment_date": "2026-08-17",
+      "certificate_no": "2026-63416",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4641000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-24",
+      "issuer": "누리전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T12_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "최지우",
+      "child_names": [
+       "최지호"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T13",
+   "support_type": "tuition",
+   "scenario": "approve_scan",
+   "title": "정상 승인 · 본인 · 약한 스캔 잡음",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-09-19",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "school_name": "동해대학교",
+    "semester": "2026-2",
+    "requested_amount": 3570000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T13_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "정하준",
+      "school_name": "동해대학교",
+      "course": "학사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 3570000,
+      "paid_amount": 3570000,
+      "payment_date": "2026-08-21",
+      "certificate_no": "2026-46572",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3570000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-28",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "light",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T14",
+   "support_type": "tuition",
+   "scenario": "approve_scan",
+   "title": "정상 승인 · 자녀 · 약한 스캔 잡음",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-08-26",
+   "form": {
+    "target_name": "강서현",
+    "relationship": "자녀",
+    "school_name": "늘푸른대학교",
+    "semester": "2026-2",
+    "requested_amount": 2432000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T14_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "강서현",
+      "school_name": "늘푸른대학교",
+      "course": "학사과정",
+      "department": "건축학과",
+      "semester": "2026-2",
+      "tuition_total": 2932000,
+      "paid_amount": 2432000,
+      "payment_date": "2026-08-19",
+      "certificate_no": "2026-38596",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2932000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-23",
+      "issuer": "늘푸른대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T14_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "강수아",
+      "child_names": [
+       "강서현"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "light",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T15",
+   "support_type": "tuition",
+   "scenario": "approve_limit",
+   "title": "정상 승인 · 한도와 같은 금액(500만원)",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-09-15",
+   "form": {
+    "target_name": "조준서",
+    "relationship": "자녀",
+    "school_name": "가온대학교",
+    "semester": "2026-2",
+    "requested_amount": 5000000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T15_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "조준서",
+      "school_name": "가온대학교",
+      "course": "학사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 5000000,
+      "paid_amount": 5000000,
+      "payment_date": "2026-08-22",
+      "certificate_no": "2026-16867",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 5000000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-27",
+      "issuer": "가온대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T15_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "조현우",
+      "child_names": [
+       "조준서"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T16",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 장학금 차감",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-09-07",
+   "form": {
+    "target_name": "윤채원",
+    "relationship": "본인",
+    "school_name": "미래전문대학",
+    "semester": "2026-2",
+    "requested_amount": 2012000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T16_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "윤채원",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "시각디자인학과",
+      "semester": "2026-2",
+      "tuition_total": 3012000,
+      "paid_amount": 2012000,
+      "payment_date": "2026-08-17",
+      "certificate_no": "2026-82914",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3012000
+       }
+      ],
+      "scholarship_amount": 1000000,
+      "issue_date": "2026-08-20",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T17",
+   "support_type": "tuition",
+   "scenario": "approve_poor_scan",
+   "title": "정상(심한 저화질 스캔) · 자녀",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-09-10",
+   "form": {
+    "target_name": "김하은",
+    "relationship": "자녀",
+    "school_name": "누리전문대학",
+    "semester": "2026-2",
+    "requested_amount": 1663000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T17_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "김하은",
+      "school_name": "누리전문대학",
+      "course": "전문학사과정",
+      "department": "사회복지학과",
+      "semester": "2026-2",
+      "tuition_total": 2863000,
+      "paid_amount": 1663000,
+      "payment_date": "2026-08-21",
+      "certificate_no": "2026-20903",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2863000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-24",
+      "issuer": "누리전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T17_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "김민준",
+      "child_names": [
+       "김하은"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "heavy",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T18",
+   "support_type": "tuition",
+   "scenario": "approve_poor_scan",
+   "title": "정상(심한 저화질 스캔) · 본인",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-17",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "school_name": "새솔사이버대학교",
+    "semester": "2026-2",
+    "requested_amount": 2246000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T18_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "이서연",
+      "school_name": "새솔사이버대학교",
+      "course": "학사과정",
+      "department": "간호학과",
+      "semester": "2026-2",
+      "tuition_total": 3446000,
+      "paid_amount": 2246000,
+      "payment_date": "2026-08-22",
+      "certificate_no": "2026-36632",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3446000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-24",
+      "issuer": "새솔사이버대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "heavy",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T19",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 전문대학 입학금",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-02",
+   "form": {
+    "target_name": "박수아",
+    "relationship": "자녀",
+    "school_name": "미래전문대학",
+    "semester": "2026-2",
+    "requested_amount": 3953000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T19_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "박수아",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "사회복지학과",
+      "semester": "2026-2",
+      "tuition_total": 3953000,
+      "paid_amount": 3953000,
+      "payment_date": "2026-08-18",
+      "certificate_no": "2026-60716",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "입학금",
+        "amount": 150000
+       },
+       {
+        "name": "수업료",
+        "amount": 3803000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-24",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T19_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "박도윤",
+      "child_names": [
+       "박수아"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T20",
+   "support_type": "tuition",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 세로형(PDF)",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-09-19",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "school_name": "한울교육대학교",
+    "semester": "2026-2",
+    "requested_amount": 2582000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T20_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "최지우",
+      "school_name": "한울교육대학교",
+      "course": "학사과정",
+      "department": "간호학과",
+      "semester": "2026-2",
+      "tuition_total": 3582000,
+      "paid_amount": 2582000,
+      "payment_date": "2026-08-23",
+      "certificate_no": "2026-85909",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3582000
+       }
+      ],
+      "scholarship_amount": 1000000,
+      "issue_date": "2026-08-29",
+      "issuer": "한울교육대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T21",
+   "support_type": "tuition",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 신청 금액이 실납입액보다 큼",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-08-26",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "school_name": "한빛대학교",
+    "semester": "2026-2",
+    "requested_amount": 4303000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T21_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "정하준",
+      "school_name": "한빛대학교",
+      "course": "학사과정",
+      "department": "건축학과",
+      "semester": "2026-2",
+      "tuition_total": 3803000,
+      "paid_amount": 3803000,
+      "payment_date": "2026-08-18",
+      "certificate_no": "2026-75369",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3803000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-22",
+      "issuer": "한빛대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T22",
+   "support_type": "tuition",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 장학금 미차감 금액으로 신청",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-08-25",
+   "form": {
+    "target_name": "강지호",
+    "relationship": "자녀",
+    "school_name": "새솔대학교",
+    "semester": "2026-2",
+    "requested_amount": 2688000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T22_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "강지호",
+      "school_name": "새솔대학교",
+      "course": "학사과정",
+      "department": "건축학과",
+      "semester": "2026-2",
+      "tuition_total": 2688000,
+      "paid_amount": 1688000,
+      "payment_date": "2026-08-19",
+      "certificate_no": "2026-92330",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2688000
+       }
+      ],
+      "scholarship_amount": 1000000,
+      "issue_date": "2026-08-21",
+      "issuer": "새솔대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T22_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "강수아",
+      "child_names": [
+       "강지호"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T23",
+   "support_type": "tuition",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 자릿수 오기(PDF)",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-09-10",
+   "form": {
+    "target_name": "조현우",
+    "relationship": "본인",
+    "school_name": "동해대학교",
+    "semester": "2026-2",
+    "requested_amount": 3184000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T23_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "조현우",
+      "school_name": "동해대학교",
+      "course": "학사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 3214000,
+      "paid_amount": 3214000,
+      "payment_date": "2026-08-19",
+      "certificate_no": "2026-72447",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3214000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-23",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T24",
+   "support_type": "tuition",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 장학금 미차감(JPG)",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-09-19",
+   "form": {
+    "target_name": "윤성민",
+    "relationship": "자녀",
+    "school_name": "늘푸른대학교",
+    "semester": "2026-2",
+    "requested_amount": 2731000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T24_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "윤성민",
+      "school_name": "늘푸른대학교",
+      "course": "학사과정",
+      "department": "화학공학과",
+      "semester": "2026-2",
+      "tuition_total": 2731000,
+      "paid_amount": 2231000,
+      "payment_date": "2026-08-25",
+      "certificate_no": "2026-74219",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2731000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-28",
+      "issuer": "늘푸른대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T24_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "윤채원",
+      "child_names": [
+       "윤성민"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T25",
+   "support_type": "tuition",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 약한 스캔 잡음",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-08-27",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "school_name": "가온대학교",
+    "semester": "2026-2",
+    "requested_amount": 4266000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T25_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "김민준",
+      "school_name": "가온대학교",
+      "course": "학사과정",
+      "department": "간호학과",
+      "semester": "2026-2",
+      "tuition_total": 3266000,
+      "paid_amount": 3266000,
+      "payment_date": "2026-08-24",
+      "certificate_no": "2026-50126",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3266000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-26",
+      "issuer": "가온대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "light",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T26",
+   "support_type": "tuition",
+   "scenario": "semester_mismatch",
+   "title": "학기 불일치 · 신청 2026-1 / 증빙 2026-2",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-18",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "school_name": "미래전문대학",
+    "semester": "2026-1",
+    "requested_amount": 2526000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T26_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "이서연",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "기계공학과",
+      "semester": "2026-2",
+      "tuition_total": 3726000,
+      "paid_amount": 2526000,
+      "payment_date": "2026-08-24",
+      "certificate_no": "2026-58141",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3726000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-30",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-SEMESTER"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T27",
+   "support_type": "tuition",
+   "scenario": "semester_mismatch",
+   "title": "학기 불일치 · 자녀 · 세로형",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-02",
+   "form": {
+    "target_name": "박건우",
+    "relationship": "자녀",
+    "school_name": "누리전문대학",
+    "semester": "2026-1",
+    "requested_amount": 3388000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T27_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "박건우",
+      "school_name": "누리전문대학",
+      "course": "전문학사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 3388000,
+      "paid_amount": 3388000,
+      "payment_date": "2026-08-25",
+      "certificate_no": "2026-89927",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3388000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-09-01",
+      "issuer": "누리전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T27_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "박도윤",
+      "child_names": [
+       "박건우"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-SEMESTER"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T28",
+   "support_type": "tuition",
+   "scenario": "semester_mismatch",
+   "title": "학기 불일치 · 증빙이 1학기(PDF)",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-09-15",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "school_name": "새솔사이버대학교",
+    "semester": "2026-2",
+    "requested_amount": 3226000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T28_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "최지우",
+      "school_name": "새솔사이버대학교",
+      "course": "학사과정",
+      "department": "건축학과",
+      "semester": "2026-1",
+      "tuition_total": 3226000,
+      "paid_amount": 3226000,
+      "payment_date": "2026-08-20",
+      "certificate_no": "2026-22593",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3226000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-31",
+      "issuer": "새솔사이버대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-SEMESTER"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T29",
+   "support_type": "tuition",
+   "scenario": "missing_document",
+   "title": "서류 누락 · 자녀인데 가족관계증명서 없음",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-08-31",
+   "form": {
+    "target_name": "정민준",
+    "relationship": "자녀",
+    "school_name": "한국방송통신대학교",
+    "semester": "2026-2",
+    "requested_amount": 380000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T29_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "정민준",
+      "school_name": "한국방송통신대학교",
+      "course": "학사과정",
+      "department": "간호학과",
+      "semester": "2026-2",
+      "tuition_total": 380000,
+      "paid_amount": 380000,
+      "payment_date": "2026-08-25",
+      "certificate_no": "2026-41562",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 380000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-28",
+      "issuer": "한국방송통신대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "MISSING:family_relation_certificate"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T30",
+   "support_type": "tuition",
+   "scenario": "missing_document",
+   "title": "서류 누락 · 가족관계증명서 없음(PDF)",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-09-08",
+   "form": {
+    "target_name": "강다은",
+    "relationship": "자녀",
+    "school_name": "한울교육대학교",
+    "semester": "2026-2",
+    "requested_amount": 3177000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T30_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "강다은",
+      "school_name": "한울교육대학교",
+      "course": "학사과정",
+      "department": "초등교육과",
+      "semester": "2026-2",
+      "tuition_total": 3677000,
+      "paid_amount": 3177000,
+      "payment_date": "2026-08-18",
+      "certificate_no": "2026-53555",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3677000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-24",
+      "issuer": "한울교육대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "MISSING:family_relation_certificate"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T31",
+   "support_type": "tuition",
+   "scenario": "missing_document",
+   "title": "서류 누락 · 가족관계증명서 없음(JPG)",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-09-10",
+   "form": {
+    "target_name": "조서연",
+    "relationship": "자녀",
+    "school_name": "한빛대학교",
+    "semester": "2026-2",
+    "requested_amount": 3221000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T31_tuition_payment_certificate.jpg",
+     "truth": {
+      "student_name": "조서연",
+      "school_name": "한빛대학교",
+      "course": "학사과정",
+      "department": "컴퓨터공학과",
+      "semester": "2026-2",
+      "tuition_total": 4221000,
+      "paid_amount": 3221000,
+      "payment_date": "2026-08-27",
+      "certificate_no": "2026-75200",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4221000
+       }
+      ],
+      "scholarship_amount": 1000000,
+      "issue_date": "2026-09-02",
+      "issuer": "한빛대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "jpg",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "MISSING:family_relation_certificate"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T32",
+   "support_type": "tuition",
+   "scenario": "name_mismatch",
+   "title": "성명 불일치 · 다른 학생의 증명서",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-08-28",
+   "form": {
+    "target_name": "윤채원",
+    "relationship": "본인",
+    "school_name": "새솔대학교",
+    "semester": "2026-2",
+    "requested_amount": 1956000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T32_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "윤서연",
+      "school_name": "새솔대학교",
+      "course": "학사과정",
+      "department": "경영학과",
+      "semester": "2026-2",
+      "tuition_total": 3156000,
+      "paid_amount": 1956000,
+      "payment_date": "2026-08-21",
+      "certificate_no": "2026-55632",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3156000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-27",
+      "issuer": "새솔대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-NAME"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T33",
+   "support_type": "tuition",
+   "scenario": "name_mismatch",
+   "title": "성명 불일치 · 다른 자녀의 증명서",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-08-22",
+   "form": {
+    "target_name": "김성민",
+    "relationship": "자녀",
+    "school_name": "동해대학교",
+    "semester": "2026-2",
+    "requested_amount": 3198000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T33_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "김시우",
+      "school_name": "동해대학교",
+      "course": "학사과정",
+      "department": "기계공학과",
+      "semester": "2026-2",
+      "tuition_total": 4398000,
+      "paid_amount": 3198000,
+      "payment_date": "2026-08-17",
+      "certificate_no": "2026-62931",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4398000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-08-20",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T33_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "김민준",
+      "child_names": [
+       "김성민",
+       "김시우"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-NAME"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T34",
+   "support_type": "tuition",
+   "scenario": "over_limit",
+   "title": "한도 초과 · 580만원",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-16",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "school_name": "늘푸른대학교",
+    "semester": "2026-2",
+    "requested_amount": 5800000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T34_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "이서연",
+      "school_name": "늘푸른대학교",
+      "course": "학사과정",
+      "department": "컴퓨터공학과",
+      "semester": "2026-2",
+      "tuition_total": 5800000,
+      "paid_amount": 5800000,
+      "payment_date": "2026-08-23",
+      "certificate_no": "2026-73748",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 5800000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-28",
+      "issuer": "늘푸른대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-LIMIT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T35",
+   "support_type": "tuition",
+   "scenario": "over_limit",
+   "title": "한도 초과 · 자녀 · 642만원(PDF)",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-08",
+   "form": {
+    "target_name": "박채원",
+    "relationship": "자녀",
+    "school_name": "가온대학교",
+    "semester": "2026-2",
+    "requested_amount": 6420000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T35_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "박채원",
+      "school_name": "가온대학교",
+      "course": "학사과정",
+      "department": "기계공학과",
+      "semester": "2026-2",
+      "tuition_total": 6420000,
+      "paid_amount": 6420000,
+      "payment_date": "2026-08-28",
+      "certificate_no": "2026-27090",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 6420000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-09-01",
+      "issuer": "가온대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T35_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "박도윤",
+      "child_names": [
+       "박채원"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-LIMIT"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T36",
+   "support_type": "tuition",
+   "scenario": "deadline",
+   "title": "기한 경과 · 납입 후 75일",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-11-01",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "school_name": "미래전문대학",
+    "semester": "2026-2",
+    "requested_amount": 3079000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T36_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "최지우",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "경영학과",
+      "semester": "2026-2",
+      "tuition_total": 3079000,
+      "paid_amount": 3079000,
+      "payment_date": "2026-08-18",
+      "certificate_no": "2026-60916",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3079000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-23",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-DEADLINE"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T37",
+   "support_type": "tuition",
+   "scenario": "deadline",
+   "title": "기한 경과 · 자녀 · 납입 후 61일",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-10-19",
+   "form": {
+    "target_name": "정지호",
+    "relationship": "자녀",
+    "school_name": "누리전문대학",
+    "semester": "2026-2",
+    "requested_amount": 4403000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T37_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "정지호",
+      "school_name": "누리전문대학",
+      "course": "전문학사과정",
+      "department": "전자공학과",
+      "semester": "2026-2",
+      "tuition_total": 4403000,
+      "paid_amount": 4403000,
+      "payment_date": "2026-08-19",
+      "certificate_no": "2026-83045",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4403000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-22",
+      "issuer": "누리전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T37_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "정하준",
+      "child_names": [
+       "정지호"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-DEADLINE"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T38",
+   "support_type": "tuition",
+   "scenario": "ineligible_institution",
+   "title": "비대상 기관 · 대학 부설 평생교육원(학점은행제)",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-09-09",
+   "form": {
+    "target_name": "강수아",
+    "relationship": "본인",
+    "school_name": "한빛대학교 평생교육원",
+    "semester": "2026-2",
+    "requested_amount": 1260000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T38_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "강수아",
+      "school_name": "한빛대학교 평생교육원",
+      "course": "학점은행제과정",
+      "department": "화학공학과",
+      "semester": "2026-2",
+      "tuition_total": 1260000,
+      "paid_amount": 1260000,
+      "payment_date": "2026-08-24",
+      "certificate_no": "2026-21475",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 1260000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-30",
+      "issuer": "한빛대학교 평생교육원 원장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-INSTITUTION"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "lifelong",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "false"
+    }
+   }
+  },
+  {
+   "id": "T39",
+   "support_type": "tuition",
+   "scenario": "ineligible_institution",
+   "title": "비대상 기관 · 원격평생교육원",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-08-30",
+   "form": {
+    "target_name": "조채원",
+    "relationship": "자녀",
+    "school_name": "미래원격평생교육원",
+    "semester": "2026-2",
+    "requested_amount": 1260000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T39_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "조채원",
+      "school_name": "미래원격평생교육원",
+      "course": "학점은행제과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 1260000,
+      "paid_amount": 1260000,
+      "payment_date": "2026-08-19",
+      "certificate_no": "2026-88664",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 1260000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-24",
+      "issuer": "미래원격평생교육원 원장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T39_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "조현우",
+      "child_names": [
+       "조채원"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-INSTITUTION"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "lifelong",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "false"
+    }
+   }
+  },
+  {
+   "id": "T40",
+   "support_type": "tuition",
+   "scenario": "ineligible_institution",
+   "title": "비대상 기관 · 사설 어학원",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-09-14",
+   "form": {
+    "target_name": "윤채원",
+    "relationship": "본인",
+    "school_name": "에이스어학원",
+    "semester": "2026-2",
+    "requested_amount": 1260000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T40_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "윤채원",
+      "school_name": "에이스어학원",
+      "course": "토익정규과정",
+      "department": "초등교육과",
+      "semester": "2026-2",
+      "tuition_total": 1260000,
+      "paid_amount": 1260000,
+      "payment_date": "2026-08-22",
+      "certificate_no": "2026-24371",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 1260000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-24",
+      "issuer": "에이스어학원 원장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-INSTITUTION"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "private",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "false"
+    }
+   }
+  },
+  {
+   "id": "T41",
+   "support_type": "tuition",
+   "scenario": "ineligible_institution",
+   "title": "비대상 기관 · IT 아카데미(PDF)",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-09-07",
+   "form": {
+    "target_name": "김민준",
+    "relationship": "본인",
+    "school_name": "코드마스터아카데미",
+    "semester": "2026-2",
+    "requested_amount": 1260000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T41_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "김민준",
+      "school_name": "코드마스터아카데미",
+      "course": "개발자양성과정",
+      "department": "기계공학과",
+      "semester": "2026-2",
+      "tuition_total": 1260000,
+      "paid_amount": 1260000,
+      "payment_date": "2026-08-28",
+      "certificate_no": "2026-83468",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 1260000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-09-03",
+      "issuer": "코드마스터아카데미 원장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-INSTITUTION"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "private",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "false"
+    }
+   }
+  },
+  {
+   "id": "T42",
+   "support_type": "tuition",
+   "scenario": "ineligible_items",
+   "title": "비대상 항목 · 기숙사비 포함",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-06",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "school_name": "새솔대학교",
+    "semester": "2026-2",
+    "requested_amount": 4408000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T42_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "이서연",
+      "school_name": "새솔대학교",
+      "course": "학사과정",
+      "department": "컴퓨터공학과",
+      "semester": "2026-2",
+      "tuition_total": 4408000,
+      "paid_amount": 4408000,
+      "payment_date": "2026-08-19",
+      "certificate_no": "2026-34423",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3558000
+       },
+       {
+        "name": "기숙사비",
+        "amount": 850000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-25",
+      "issuer": "새솔대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-ITEMS"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "includes_ineligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T43",
+   "support_type": "tuition",
+   "scenario": "ineligible_items",
+   "title": "비대상 항목 · 학생회비 포함",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-16",
+   "form": {
+    "target_name": "박성민",
+    "relationship": "자녀",
+    "school_name": "동해대학교",
+    "semester": "2026-2",
+    "requested_amount": 4297000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T43_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "박성민",
+      "school_name": "동해대학교",
+      "course": "학사과정",
+      "department": "시각디자인학과",
+      "semester": "2026-2",
+      "tuition_total": 4297000,
+      "paid_amount": 4297000,
+      "payment_date": "2026-08-27",
+      "certificate_no": "2026-11305",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4277000
+       },
+       {
+        "name": "학생회비",
+        "amount": 20000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-09-01",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T43_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "박도윤",
+      "child_names": [
+       "박성민"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-ITEMS"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "includes_ineligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T44",
+   "support_type": "tuition",
+   "scenario": "ineligible_items",
+   "title": "비대상 항목 · 계절학기 수업료",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-09-07",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "school_name": "늘푸른대학교",
+    "semester": "2026-2",
+    "requested_amount": 420000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T44_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "최지우",
+      "school_name": "늘푸른대학교",
+      "course": "학사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 420000,
+      "paid_amount": 420000,
+      "payment_date": "2026-08-28",
+      "certificate_no": "2026-36046",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "계절학기 수업료",
+        "amount": 420000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-09-03",
+      "issuer": "늘푸른대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-ITEMS"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "includes_ineligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T45",
+   "support_type": "tuition",
+   "scenario": "ineligible_items",
+   "title": "비대상 항목 · 교재비·동문회비 포함(PDF)",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-09-19",
+   "form": {
+    "target_name": "정서연",
+    "relationship": "자녀",
+    "school_name": "가온대학교",
+    "semester": "2026-2",
+    "requested_amount": 3378000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T45_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "정서연",
+      "school_name": "가온대학교",
+      "course": "학사과정",
+      "department": "건축학과",
+      "semester": "2026-2",
+      "tuition_total": 3378000,
+      "paid_amount": 3378000,
+      "payment_date": "2026-08-27",
+      "certificate_no": "2026-52121",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3228000
+       },
+       {
+        "name": "교재비",
+        "amount": 120000
+       },
+       {
+        "name": "동문회비",
+        "amount": 30000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-29",
+      "issuer": "가온대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T45_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "정하준",
+      "child_names": [
+       "정서연"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-ITEMS"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "includes_ineligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T46",
+   "support_type": "tuition",
+   "scenario": "informal_document",
+   "title": "증빙 요건 미비 · 직인 없음",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-09-12",
+   "form": {
+    "target_name": "강수아",
+    "relationship": "본인",
+    "school_name": "미래전문대학",
+    "semester": "2026-2",
+    "requested_amount": 2881000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T46_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "강수아",
+      "school_name": "미래전문대학",
+      "course": "전문학사과정",
+      "department": "전자공학과",
+      "semester": "2026-2",
+      "tuition_total": 2881000,
+      "paid_amount": 2881000,
+      "payment_date": "2026-08-25",
+      "certificate_no": "2026-89625",
+      "seal": "없음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2881000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-30",
+      "issuer": "미래전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-FORMAL"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "fail",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T47",
+   "support_type": "tuition",
+   "scenario": "informal_document",
+   "title": "증빙 요건 미비 · 직인·발급일 없음",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-09-09",
+   "form": {
+    "target_name": "조소율",
+    "relationship": "자녀",
+    "school_name": "누리전문대학",
+    "semester": "2026-2",
+    "requested_amount": 2898000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T47_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "조소율",
+      "school_name": "누리전문대학",
+      "course": "전문학사과정",
+      "department": "초등교육과",
+      "semester": "2026-2",
+      "tuition_total": 4098000,
+      "paid_amount": 2898000,
+      "payment_date": "2026-08-23",
+      "certificate_no": "2026-86809",
+      "seal": "없음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4098000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issuer": "누리전문대학 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T47_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "조현우",
+      "child_names": [
+       "조소율"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-FORMAL"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "fail",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T48",
+   "support_type": "tuition",
+   "scenario": "grad_child",
+   "title": "자녀의 대학원 과정 · 석사",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-09-12",
+   "form": {
+    "target_name": "윤도윤",
+    "relationship": "자녀",
+    "school_name": "한빛대학교 대학원",
+    "semester": "2026-2",
+    "requested_amount": 4540000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T48_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "윤도윤",
+      "school_name": "한빛대학교 대학원",
+      "course": "석사과정",
+      "department": "기계공학과",
+      "semester": "2026-2",
+      "tuition_total": 4540000,
+      "paid_amount": 4540000,
+      "payment_date": "2026-08-18",
+      "certificate_no": "2026-52453",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4540000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-23",
+      "issuer": "한빛대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T48_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "윤채원",
+      "child_names": [
+       "윤도윤"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-ELIGIBLE-COURSE"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "graduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "false"
+    }
+   }
+  },
+  {
+   "id": "T49",
+   "support_type": "tuition",
+   "scenario": "grad_child",
+   "title": "자녀의 대학원 과정 · 석사(PDF)",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-09-06",
+   "form": {
+    "target_name": "김현우",
+    "relationship": "자녀",
+    "school_name": "동해대학교 대학원",
+    "semester": "2026-2",
+    "requested_amount": 1687000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T49_tuition_payment_certificate.pdf",
+     "truth": {
+      "student_name": "김현우",
+      "school_name": "동해대학교 대학원",
+      "course": "석사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 2887000,
+      "paid_amount": 1687000,
+      "payment_date": "2026-08-26",
+      "certificate_no": "2026-73186",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2887000
+       }
+      ],
+      "scholarship_amount": 1200000,
+      "issue_date": "2026-09-02",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T49_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "김민준",
+      "child_names": [
+       "김현우"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-ELIGIBLE-COURSE"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "graduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "false"
+    }
+   }
+  },
+  {
+   "id": "T50",
+   "support_type": "tuition",
+   "scenario": "tenure",
+   "title": "재직기간 1년 미만",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2026-03-02",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-04",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "school_name": "한울교육대학교",
+    "semester": "2026-2",
+    "requested_amount": 2227000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T50_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "이서연",
+      "school_name": "한울교육대학교",
+      "course": "학사과정",
+      "department": "건축학과",
+      "semester": "2026-2",
+      "tuition_total": 2727000,
+      "paid_amount": 2227000,
+      "payment_date": "2026-08-21",
+      "certificate_no": "2026-95854",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2727000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-25",
+      "issuer": "한울교육대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-TENURE"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T51",
+   "support_type": "tuition",
+   "scenario": "family_mismatch",
+   "title": "가족관계증명서에 대상자 없음",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-09-10",
+   "form": {
+    "target_name": "박성민",
+    "relationship": "자녀",
+    "school_name": "한빛대학교",
+    "semester": "2026-2",
+    "requested_amount": 2809000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T51_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "박성민",
+      "school_name": "한빛대학교",
+      "course": "학사과정",
+      "department": "화학공학과",
+      "semester": "2026-2",
+      "tuition_total": 2809000,
+      "paid_amount": 2809000,
+      "payment_date": "2026-08-27",
+      "certificate_no": "2026-94675",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 2809000
+       }
+      ],
+      "scholarship_amount": 0,
+      "issue_date": "2026-08-31",
+      "issuer": "한빛대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T51_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "박도윤",
+      "child_names": [
+       "오하은"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-FAMILY-CHILD"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T52",
+   "support_type": "tuition",
+   "scenario": "wrong_document",
+   "title": "잘못된 서류 · 납입증명서 대신 고지서 제출",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-09-04",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "school_name": "새솔대학교",
+    "semester": "2026-2",
+    "requested_amount": 2597000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T52_tuition_payment_certificate.png",
+     "truth": null,
+     "actual_kind": "tuition_bill"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "MISSING:tuition_payment_certificate"
+    ],
+    "judgments": {}
+   }
+  },
+  {
+   "id": "T53",
+   "support_type": "tuition",
+   "scenario": "school_mismatch",
+   "title": "학교명 불일치",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-09-08",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "school_name": "가온대학교",
+    "semester": "2026-2",
+    "requested_amount": 2951000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T53_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "정하준",
+      "school_name": "동해대학교",
+      "course": "학사과정",
+      "department": "통계학과",
+      "semester": "2026-2",
+      "tuition_total": 3451000,
+      "paid_amount": 2951000,
+      "payment_date": "2026-08-24",
+      "certificate_no": "2026-13562",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 3451000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-29",
+      "issuer": "동해대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-SCHOOL"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "T54",
+   "support_type": "tuition",
+   "scenario": "family_mismatch",
+   "title": "가족관계증명서가 다른 사람 기준",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-08-25",
+   "form": {
+    "target_name": "강서연",
+    "relationship": "자녀",
+    "school_name": "늘푸른대학교",
+    "semester": "2026-2",
+    "requested_amount": 3797000
+   },
+   "documents": [
+    {
+     "doc_id": "tuition_payment_certificate",
+     "file": "files/T54_tuition_payment_certificate.png",
+     "truth": {
+      "student_name": "강서연",
+      "school_name": "늘푸른대학교",
+      "course": "학사과정",
+      "department": "경영학과",
+      "semester": "2026-2",
+      "tuition_total": 4297000,
+      "paid_amount": 3797000,
+      "payment_date": "2026-08-20",
+      "certificate_no": "2026-34251",
+      "seal": "있음",
+      "payment_items": [
+       {
+        "name": "수업료",
+        "amount": 4297000
+       }
+      ],
+      "scholarship_amount": 500000,
+      "issue_date": "2026-08-23",
+      "issuer": "늘푸른대학교 총장"
+     },
+     "actual_kind": "tuition_certificate"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/T54_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "장다은",
+      "child_names": [
+       "강서연"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-FAMILY-SELF"
+    ],
+    "judgments": {
+     "J-INSTITUTION": "undergraduate",
+     "J-ITEMS": "all_eligible",
+     "J-FORMAL": "pass",
+     "J-ELIGIBLE-COURSE": "true"
+    }
+   }
+  },
+  {
+   "id": "M01",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 내과 편도염",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-10-04",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-09-23",
+    "requested_amount": 419000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M01_medical_receipt.png",
+     "truth": {
+      "patient_name": "이서연",
+      "hospital_name": "한빛내과의원",
+      "institution_kind": "의원",
+      "department": "내과",
+      "treatment": "급성 편도염 진료",
+      "patient_total": 419000,
+      "paid_amount": 419000,
+      "receipt_date": "2026-09-23",
+      "receipt_no": "20260923-9903",
+      "business_no": "457-19-96457"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M02",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 소아청소년과 폐렴",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-09-25",
+   "form": {
+    "target_name": "정윤서",
+    "relationship": "자녀",
+    "hospital_name": "튼튼소아청소년과의원",
+    "receipt_date": "2026-09-10",
+    "requested_amount": 386000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M02_medical_receipt.png",
+     "truth": {
+      "patient_name": "정윤서",
+      "hospital_name": "튼튼소아청소년과의원",
+      "institution_kind": "의원",
+      "department": "소아청소년과",
+      "treatment": "폐렴 입원 치료",
+      "patient_total": 386000,
+      "paid_amount": 386000,
+      "receipt_date": "2026-09-10",
+      "receipt_no": "20260910-1697",
+      "business_no": "512-96-10806"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M02_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "정하준",
+      "family_names": [
+       "오서현",
+       "정윤서"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M03",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 배우자 · 정형외과 골절(PDF)",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-10-15",
+   "form": {
+    "target_name": "최가은",
+    "relationship": "배우자",
+    "hospital_name": "새솔정형외과의원",
+    "receipt_date": "2026-09-30",
+    "requested_amount": 1240000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M03_medical_receipt.pdf",
+     "truth": {
+      "patient_name": "최가은",
+      "hospital_name": "새솔정형외과의원",
+      "institution_kind": "의원",
+      "department": "정형외과",
+      "treatment": "발목 골절 수술",
+      "patient_total": 1240000,
+      "paid_amount": 1240000,
+      "receipt_date": "2026-09-30",
+      "receipt_no": "20260930-2771",
+      "business_no": "552-94-25275"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M03_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "윤채원",
+      "family_names": [
+       "최가은",
+       "윤지호"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M04",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 치과 충치",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-11-06",
+   "form": {
+    "target_name": "박도윤",
+    "relationship": "본인",
+    "hospital_name": "미래치과의원",
+    "receipt_date": "2026-09-27",
+    "requested_amount": 238000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M04_medical_receipt.png",
+     "truth": {
+      "patient_name": "박도윤",
+      "hospital_name": "미래치과의원",
+      "institution_kind": "치과의원",
+      "department": "치과",
+      "treatment": "충치 치료",
+      "patient_total": 238000,
+      "paid_amount": 238000,
+      "receipt_date": "2026-09-27",
+      "receipt_no": "20260927-8295",
+      "business_no": "672-58-60879"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M05",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 이비인후과(JPG)",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-10-09",
+   "form": {
+    "target_name": "강수아",
+    "relationship": "본인",
+    "hospital_name": "바른이비인후과의원",
+    "receipt_date": "2026-09-06",
+    "requested_amount": 213000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M05_medical_receipt.jpg",
+     "truth": {
+      "patient_name": "강수아",
+      "hospital_name": "바른이비인후과의원",
+      "institution_kind": "의원",
+      "department": "이비인후과",
+      "treatment": "급성 중이염 치료",
+      "patient_total": 213000,
+      "paid_amount": 213000,
+      "receipt_date": "2026-09-06",
+      "receipt_no": "20260906-6996",
+      "business_no": "349-32-63359"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "jpg",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M06",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 자녀 · 안과 결막염",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-11-01",
+   "form": {
+    "target_name": "김지호",
+    "relationship": "자녀",
+    "hospital_name": "밝은안과의원",
+    "receipt_date": "2026-09-30",
+    "requested_amount": 231000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M06_medical_receipt.png",
+     "truth": {
+      "patient_name": "김지호",
+      "hospital_name": "밝은안과의원",
+      "institution_kind": "의원",
+      "department": "안과",
+      "treatment": "결막염 진료",
+      "patient_total": 231000,
+      "paid_amount": 231000,
+      "receipt_date": "2026-09-30",
+      "receipt_no": "20260930-5645",
+      "business_no": "292-61-58407"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M06_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "김민준",
+      "family_names": [
+       "임건우",
+       "김지호"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M07",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 한의원 염좌",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-10-20",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "hospital_name": "늘푸른한의원",
+    "receipt_date": "2026-09-08",
+    "requested_amount": 289000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M07_medical_receipt.png",
+     "truth": {
+      "patient_name": "최지우",
+      "hospital_name": "늘푸른한의원",
+      "institution_kind": "한의원",
+      "department": "한방내과",
+      "treatment": "발목 염좌 침 치료",
+      "patient_total": 289000,
+      "paid_amount": 289000,
+      "receipt_date": "2026-09-08",
+      "receipt_no": "20260908-3595",
+      "business_no": "609-90-98395"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M08",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 배우자 · 대학병원 수술",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-08-30",
+   "form": {
+    "target_name": "한소율",
+    "relationship": "배우자",
+    "hospital_name": "가온대학교병원",
+    "receipt_date": "2026-08-26",
+    "requested_amount": 1850000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M08_medical_receipt.png",
+     "truth": {
+      "patient_name": "한소율",
+      "hospital_name": "가온대학교병원",
+      "institution_kind": "상급종합병원",
+      "department": "산부인과",
+      "treatment": "자궁근종 수술",
+      "patient_total": 1850000,
+      "paid_amount": 1850000,
+      "receipt_date": "2026-08-26",
+      "receipt_no": "20260826-8294",
+      "business_no": "886-94-99752"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M08_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "조현우",
+      "family_names": [
+       "한소율",
+       "조가은"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M09",
+   "support_type": "medical",
+   "scenario": "approve_scan",
+   "title": "정상 승인 · 본인 · 피부과 아토피(스캔 잡음)",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-10-22",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "hospital_name": "연세피부과의원",
+    "receipt_date": "2026-09-14",
+    "requested_amount": 171000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M09_medical_receipt.jpg",
+     "truth": {
+      "patient_name": "이서연",
+      "hospital_name": "연세피부과의원",
+      "institution_kind": "의원",
+      "department": "피부과",
+      "treatment": "아토피 피부염 치료",
+      "patient_total": 171000,
+      "paid_amount": 171000,
+      "receipt_date": "2026-09-14",
+      "receipt_no": "20260914-6745",
+      "business_no": "509-52-94094"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "jpg",
+   "quality": "light",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M10",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 내과 위염(스캔 PDF)",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-09-18",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-09-02",
+    "requested_amount": 329000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M10_medical_receipt.pdf",
+     "truth": {
+      "patient_name": "정하준",
+      "hospital_name": "한빛내과의원",
+      "institution_kind": "의원",
+      "department": "내과",
+      "treatment": "위염 진료 및 투약",
+      "patient_total": 329000,
+      "paid_amount": 329000,
+      "receipt_date": "2026-09-02",
+      "receipt_no": "20260902-5547",
+      "business_no": "273-14-78931"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "scanpdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M11",
+   "support_type": "medical",
+   "scenario": "approve",
+   "title": "정상 승인 · 본인 · 외과 맹장염 수술",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-10-05",
+   "form": {
+    "target_name": "윤채원",
+    "relationship": "본인",
+    "hospital_name": "서울중앙종합병원",
+    "receipt_date": "2026-09-03",
+    "requested_amount": 960000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M11_medical_receipt.png",
+     "truth": {
+      "patient_name": "윤채원",
+      "hospital_name": "서울중앙종합병원",
+      "institution_kind": "종합병원",
+      "department": "외과",
+      "treatment": "급성 충수염 수술",
+      "patient_total": 960000,
+      "paid_amount": 960000,
+      "receipt_date": "2026-09-03",
+      "receipt_no": "20260903-9629",
+      "business_no": "624-70-48805"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M12",
+   "support_type": "medical",
+   "scenario": "approve_ambiguous",
+   "title": "정상(판단 어려움) · 정형외과 도수치료",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-10-12",
+   "form": {
+    "target_name": "박도윤",
+    "relationship": "본인",
+    "hospital_name": "새솔정형외과의원",
+    "receipt_date": "2026-09-29",
+    "requested_amount": 314000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M12_medical_receipt.png",
+     "truth": {
+      "patient_name": "박도윤",
+      "hospital_name": "새솔정형외과의원",
+      "institution_kind": "의원",
+      "department": "정형외과",
+      "treatment": "허리 통증 도수치료",
+      "patient_total": 314000,
+      "paid_amount": 314000,
+      "receipt_date": "2026-09-29",
+      "receipt_no": "20260929-9402",
+      "business_no": "473-35-44057"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "APPROVE",
+    "reasons": [],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M13",
+   "support_type": "medical",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 신청 금액이 더 큼",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2026-09-03",
+   "form": {
+    "target_name": "강수아",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-08-30",
+    "requested_amount": 182000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M13_medical_receipt.png",
+     "truth": {
+      "patient_name": "강수아",
+      "hospital_name": "한빛내과의원",
+      "institution_kind": "의원",
+      "department": "내과",
+      "treatment": "독감 진료",
+      "patient_total": 132000,
+      "paid_amount": 132000,
+      "receipt_date": "2026-08-30",
+      "receipt_no": "20260830-2215",
+      "business_no": "947-86-91635"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M14",
+   "support_type": "medical",
+   "scenario": "amount_mismatch",
+   "title": "금액 불일치 · 진료비 총액으로 신청(PDF)",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-09-25",
+   "form": {
+    "target_name": "김성민",
+    "relationship": "자녀",
+    "hospital_name": "바른이비인후과의원",
+    "receipt_date": "2026-08-31",
+    "requested_amount": 1397800
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M14_medical_receipt.pdf",
+     "truth": {
+      "patient_name": "김성민",
+      "hospital_name": "바른이비인후과의원",
+      "institution_kind": "의원",
+      "department": "이비인후과",
+      "treatment": "편도 절제 수술",
+      "patient_total": 540000,
+      "paid_amount": 540000,
+      "receipt_date": "2026-08-31",
+      "receipt_no": "20260831-7895",
+      "business_no": "217-91-72932"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M14_family_relation_certificate.pdf",
+     "truth": {
+      "principal_name": "김민준",
+      "family_names": [
+       "오주원",
+       "김성민"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "pdf",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-AMOUNT"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M15",
+   "support_type": "medical",
+   "scenario": "non_treatment",
+   "title": "미용·성형 · 쌍꺼풀 수술",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-10-31",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "hospital_name": "아름다운성형외과의원",
+    "receipt_date": "2026-09-23",
+    "requested_amount": 1500000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M15_medical_receipt.png",
+     "truth": {
+      "patient_name": "최지우",
+      "hospital_name": "아름다운성형외과의원",
+      "institution_kind": "의원",
+      "department": "성형외과",
+      "treatment": "쌍꺼풀 수술",
+      "patient_total": 1500000,
+      "paid_amount": 1500000,
+      "receipt_date": "2026-09-23",
+      "receipt_no": "20260923-9092",
+      "business_no": "895-50-50972"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-PURPOSE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "cosmetic"
+    }
+   }
+  },
+  {
+   "id": "M16",
+   "support_type": "medical",
+   "scenario": "non_treatment",
+   "title": "미용·성형 · 보톡스 시술",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-10-13",
+   "form": {
+    "target_name": "최태민",
+    "relationship": "배우자",
+    "hospital_name": "연세피부과의원",
+    "receipt_date": "2026-09-14",
+    "requested_amount": 220000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M16_medical_receipt.png",
+     "truth": {
+      "patient_name": "최태민",
+      "hospital_name": "연세피부과의원",
+      "institution_kind": "의원",
+      "department": "피부과",
+      "treatment": "보톡스 시술",
+      "patient_total": 220000,
+      "paid_amount": 220000,
+      "receipt_date": "2026-09-14",
+      "receipt_no": "20260914-4936",
+      "business_no": "163-43-34937"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M16_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "조현우",
+      "family_names": [
+       "최태민",
+       "조윤서"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-PURPOSE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "cosmetic"
+    }
+   }
+  },
+  {
+   "id": "M17",
+   "support_type": "medical",
+   "scenario": "non_treatment",
+   "title": "미용·성형 · 치아 미백",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-26",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "hospital_name": "미래치과의원",
+    "receipt_date": "2026-09-07",
+    "requested_amount": 300000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M17_medical_receipt.png",
+     "truth": {
+      "patient_name": "이서연",
+      "hospital_name": "미래치과의원",
+      "institution_kind": "치과의원",
+      "department": "치과",
+      "treatment": "치아 미백",
+      "patient_total": 300000,
+      "paid_amount": 300000,
+      "receipt_date": "2026-09-07",
+      "receipt_no": "20260907-3633",
+      "business_no": "649-73-37016"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-PURPOSE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "cosmetic"
+    }
+   }
+  },
+  {
+   "id": "M18",
+   "support_type": "medical",
+   "scenario": "non_treatment",
+   "title": "검진·예방 · 종합건강검진",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-10-01",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "hospital_name": "동해병원",
+    "receipt_date": "2026-09-03",
+    "requested_amount": 450000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M18_medical_receipt.png",
+     "truth": {
+      "patient_name": "정하준",
+      "hospital_name": "동해병원",
+      "institution_kind": "병원",
+      "department": "가정의학과",
+      "treatment": "종합건강검진",
+      "patient_total": 450000,
+      "paid_amount": 450000,
+      "receipt_date": "2026-09-03",
+      "receipt_no": "20260903-5675",
+      "business_no": "756-39-66135"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-PURPOSE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "preventive"
+    }
+   }
+  },
+  {
+   "id": "M19",
+   "support_type": "medical",
+   "scenario": "non_treatment",
+   "title": "검진·예방 · 독감 예방접종",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-10-10",
+   "form": {
+    "target_name": "윤윤서",
+    "relationship": "자녀",
+    "hospital_name": "튼튼소아청소년과의원",
+    "receipt_date": "2026-09-01",
+    "requested_amount": 40000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M19_medical_receipt.png",
+     "truth": {
+      "patient_name": "윤윤서",
+      "hospital_name": "튼튼소아청소년과의원",
+      "institution_kind": "의원",
+      "department": "소아청소년과",
+      "treatment": "독감 예방접종",
+      "patient_total": 40000,
+      "paid_amount": 40000,
+      "receipt_date": "2026-09-01",
+      "receipt_no": "20260901-4082",
+      "business_no": "920-51-21993"
+     },
+     "actual_kind": "medical_receipt"
+    },
+    {
+     "doc_id": "family_relation_certificate",
+     "file": "files/M19_family_relation_certificate.png",
+     "truth": {
+      "principal_name": "윤채원",
+      "family_names": [
+       "최하준",
+       "윤윤서"
+      ]
+     },
+     "actual_kind": "family_certificate"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-PURPOSE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "preventive"
+    }
+   }
+  },
+  {
+   "id": "M20",
+   "support_type": "medical",
+   "scenario": "non_treatment",
+   "title": "건강증진 · 영양주사",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-10-02",
+   "form": {
+    "target_name": "박도윤",
+    "relationship": "본인",
+    "hospital_name": "동해병원",
+    "receipt_date": "2026-09-15",
+    "requested_amount": 80000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M20_medical_receipt.png",
+     "truth": {
+      "patient_name": "박도윤",
+      "hospital_name": "동해병원",
+      "institution_kind": "병원",
+      "department": "가정의학과",
+      "treatment": "영양주사",
+      "patient_total": 80000,
+      "paid_amount": 80000,
+      "receipt_date": "2026-09-15",
+      "receipt_no": "20260915-9650",
+      "business_no": "381-10-68302"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-PURPOSE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "wellness"
+    }
+   }
+  },
+  {
+   "id": "M21",
+   "support_type": "medical",
+   "scenario": "deadline",
+   "title": "기한 경과 · 수납 후 97일",
+   "employee": {
+    "name": "강수아",
+    "hire_date": "2017-11-06",
+    "employee_no": "E2017160"
+   },
+   "applied_on": "2027-01-06",
+   "form": {
+    "target_name": "강수아",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-10-01",
+    "requested_amount": 386000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M21_medical_receipt.png",
+     "truth": {
+      "patient_name": "강수아",
+      "hospital_name": "한빛내과의원",
+      "institution_kind": "의원",
+      "department": "내과",
+      "treatment": "위염 진료 및 투약",
+      "patient_total": 386000,
+      "paid_amount": 386000,
+      "receipt_date": "2026-10-01",
+      "receipt_no": "20261001-3457",
+      "business_no": "645-55-86908"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-DEADLINE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M22",
+   "support_type": "medical",
+   "scenario": "missing_document",
+   "title": "서류 누락 · 자녀인데 가족관계증명서 없음",
+   "employee": {
+    "name": "김민준",
+    "hire_date": "2019-03-04",
+    "employee_no": "E2019031"
+   },
+   "applied_on": "2026-10-29",
+   "form": {
+    "target_name": "김준서",
+    "relationship": "자녀",
+    "hospital_name": "튼튼소아청소년과의원",
+    "receipt_date": "2026-09-28",
+    "requested_amount": 294000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M22_medical_receipt.png",
+     "truth": {
+      "patient_name": "김준서",
+      "hospital_name": "튼튼소아청소년과의원",
+      "institution_kind": "의원",
+      "department": "소아청소년과",
+      "treatment": "장염 진료",
+      "patient_total": 294000,
+      "paid_amount": 294000,
+      "receipt_date": "2026-09-28",
+      "receipt_no": "20260928-4092",
+      "business_no": "266-77-54829"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "MISSING:family_relation_certificate"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M23",
+   "support_type": "medical",
+   "scenario": "name_mismatch",
+   "title": "환자 성명 불일치",
+   "employee": {
+    "name": "최지우",
+    "hire_date": "2021-09-13",
+    "employee_no": "E2021204"
+   },
+   "applied_on": "2026-11-03",
+   "form": {
+    "target_name": "최지우",
+    "relationship": "본인",
+    "hospital_name": "새솔정형외과의원",
+    "receipt_date": "2026-10-02",
+    "requested_amount": 33000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M23_medical_receipt.png",
+     "truth": {
+      "patient_name": "김현우",
+      "hospital_name": "새솔정형외과의원",
+      "institution_kind": "의원",
+      "department": "정형외과",
+      "treatment": "손목 염좌 치료",
+      "patient_total": 33000,
+      "paid_amount": 33000,
+      "receipt_date": "2026-10-02",
+      "receipt_no": "20261002-3754",
+      "business_no": "771-60-24615"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-PATIENT"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M24",
+   "support_type": "medical",
+   "scenario": "non_medical_institution",
+   "title": "비의료기관 · 피부관리실",
+   "employee": {
+    "name": "조현우",
+    "hire_date": "2010-02-22",
+    "employee_no": "E2010019"
+   },
+   "applied_on": "2026-09-27",
+   "form": {
+    "target_name": "조현우",
+    "relationship": "본인",
+    "hospital_name": "뷰티라인피부관리실",
+    "receipt_date": "2026-09-03",
+    "requested_amount": 330000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M24_medical_receipt.png",
+     "truth": {
+      "patient_name": "조현우",
+      "hospital_name": "뷰티라인피부관리실",
+      "department": "피부관리",
+      "treatment": "피부 관리 10회권",
+      "patient_total": 330000,
+      "paid_amount": 330000,
+      "receipt_date": "2026-09-03",
+      "receipt_no": "20260903-8571",
+      "business_no": "483-72-48713"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "J-MED-INSTITUTION"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "false",
+     "J-MED-PURPOSE": "cosmetic"
+    }
+   }
+  },
+  {
+   "id": "M25",
+   "support_type": "medical",
+   "scenario": "over_limit",
+   "title": "한도 초과 · 240만원",
+   "employee": {
+    "name": "이서연",
+    "hire_date": "2015-07-01",
+    "employee_no": "E2015112"
+   },
+   "applied_on": "2026-09-21",
+   "form": {
+    "target_name": "이서연",
+    "relationship": "본인",
+    "hospital_name": "서울중앙종합병원",
+    "receipt_date": "2026-08-25",
+    "requested_amount": 2400000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M25_medical_receipt.png",
+     "truth": {
+      "patient_name": "이서연",
+      "hospital_name": "서울중앙종합병원",
+      "institution_kind": "종합병원",
+      "department": "외과",
+      "treatment": "담낭 절제 수술",
+      "patient_total": 2400000,
+      "paid_amount": 2400000,
+      "receipt_date": "2026-08-25",
+      "receipt_no": "20260825-3140",
+      "business_no": "483-82-81795"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-LIMIT"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M26",
+   "support_type": "medical",
+   "scenario": "wrong_document",
+   "title": "잘못된 서류 · 카드 매출전표 제출",
+   "employee": {
+    "name": "정하준",
+    "hire_date": "2008-05-19",
+    "employee_no": "E2008051"
+   },
+   "applied_on": "2026-11-01",
+   "form": {
+    "target_name": "정하준",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-09-21",
+    "requested_amount": 30000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M26_medical_receipt.png",
+     "truth": null,
+     "actual_kind": "card_slip"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "MISSING:medical_receipt"
+    ],
+    "judgments": {}
+   }
+  },
+  {
+   "id": "M27",
+   "support_type": "medical",
+   "scenario": "date_mismatch",
+   "title": "수납일 불일치",
+   "employee": {
+    "name": "윤채원",
+    "hire_date": "2023-04-03",
+    "employee_no": "E2023044"
+   },
+   "applied_on": "2026-09-26",
+   "form": {
+    "target_name": "윤채원",
+    "relationship": "본인",
+    "hospital_name": "밝은안과의원",
+    "receipt_date": "2026-09-18",
+    "requested_amount": 403000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M27_medical_receipt.png",
+     "truth": {
+      "patient_name": "윤채원",
+      "hospital_name": "밝은안과의원",
+      "institution_kind": "의원",
+      "department": "안과",
+      "treatment": "안구건조증 진료",
+      "patient_total": 403000,
+      "paid_amount": 403000,
+      "receipt_date": "2026-09-15",
+      "receipt_no": "20260915-5112",
+      "business_no": "539-13-59593"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "C-DATE"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  },
+  {
+   "id": "M28",
+   "support_type": "medical",
+   "scenario": "under_minimum",
+   "title": "최소 금액 미만 · 8,000원",
+   "employee": {
+    "name": "박도윤",
+    "hire_date": "2012-01-02",
+    "employee_no": "E2012007"
+   },
+   "applied_on": "2026-10-04",
+   "form": {
+    "target_name": "박도윤",
+    "relationship": "본인",
+    "hospital_name": "한빛내과의원",
+    "receipt_date": "2026-10-01",
+    "requested_amount": 8000
+   },
+   "documents": [
+    {
+     "doc_id": "medical_receipt",
+     "file": "files/M28_medical_receipt.png",
+     "truth": {
+      "patient_name": "박도윤",
+      "hospital_name": "한빛내과의원",
+      "institution_kind": "의원",
+      "department": "내과",
+      "treatment": "감기 진료",
+      "patient_total": 8000,
+      "paid_amount": 8000,
+      "receipt_date": "2026-10-01",
+      "receipt_no": "20261001-4181",
+      "business_no": "877-81-51256"
+     },
+     "actual_kind": "medical_receipt"
+    }
+   ],
+   "format": "png",
+   "quality": "clean",
+   "expected": {
+    "verdict": "REJECT",
+    "reasons": [
+     "S-MIN"
+    ],
+    "judgments": {
+     "J-MED-INSTITUTION": "true",
+     "J-MED-PURPOSE": "treatment"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+# Argo CD Application: Git의 Helm 차트를 EKS의 evidence 네임스페이스에 계속 맞춘다(GitOps).
+#   kubectl apply -n argocd -f deploy/argocd/application.yaml
+# Jenkins가 values-eks.yaml 의 image.tag 를 커밋하면 Argo CD가 감지해 롤링 배포한다.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: evidence-agent
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<org>/<repo>.git     # 이 저장소 주소로 바꾼다
+    targetRevision: main
+    path: deploy/helm/evidence-agent
+    helm:
+      releaseName: evidence
+      valueFiles:
+        - values-eks.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: evidence
+  syncPolicy:
+    automated:
+      prune: true        # Git에서 지운 리소스는 클러스터에서도 지운다
+      selfHeal: true     # 클러스터에서 손으로 바꾼 것은 Git 상태로 되돌린다
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 3
+      backoff: {duration: 20s, factor: 2, maxDuration: 3m}
