@@ -179,6 +179,6 @@ python tools/e2e_demo.py --base http://localhost:8088 --evaluate   # 띄운 시�
 
 ## 다음 단계
 
-1. 첫 멘토링에서 Jev 키와 실제 규정·증빙·반려 사례를 받아 규정 YAML과 정답 세트를 교체하고 다시 검증
+1. 실제 규정·증빙·반려 사례를 받아 규정 YAML과 정답 세트를 교체하고 다시 검증
 2. 실제 증빙 서식에 맞춰 라벨 별칭 보강, 낮은 확신도 구간 표본을 늘려 기준값 확정
 3. AWS 계정에서 `deploy/README.md` 절차로 EKS 배포
